@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Save It</string>
+    <string name="txtRestaurantName">A restaurant</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtTotal">total</string>
+    <string name="btnOrder">order</string>
+    <string name="txtDefaultTotal">$0</string>
 </resources>
