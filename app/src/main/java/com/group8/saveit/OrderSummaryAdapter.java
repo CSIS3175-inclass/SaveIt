@@ -1,6 +1,7 @@
 package com.group8.saveit;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,29 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     Context context;
     ArrayList<FoodBundle> foodBundles;
     LayoutInflater layoutInflater;
+    TextView totalPrice;
 
-    public OrderSummaryAdapter(Context context, ArrayList<FoodBundle> foodBundles) {
+
+    public OrderSummaryAdapter(Context context, ArrayList<FoodBundle> foodBundles, TextView totalPrice) {
         this.context = context;
         this.foodBundles = foodBundles;
         this.layoutInflater = LayoutInflater.from(context);
+        this.totalPrice = totalPrice;
     }
     public void deleteFoodBundle(int position){
         foodBundles.remove(position);
+    }
+
+    private OnDataChangedListener onDataChangedListener;
+
+    public void setOnDataChangedListener(OnDataChangedListener listener) {
+        this.onDataChangedListener = listener;
+    }
+
+    private void dataChanged() {
+        if (onDataChangedListener != null) {
+            onDataChangedListener.onDataChanged();
+        }
     }
 
     @NonNull
@@ -56,10 +72,25 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         SimpleAdapter listAdapter=new SimpleAdapter(layoutInflater.getContext(),itemList,R.layout.food_bundle_subitem,from,to);
         orderViewHolder.listView.setAdapter(listAdapter);
 
+        //update order's total price
+        double total = 0;
+        for(int i = 0; i< foodBundles.size();i++){
+            total+=foodBundles.get(i).getPrice();
+        }
+        totalPrice.setText("$"+Double.toString(total));
+
         orderViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteFoodBundle(orderViewHolder.getAdapterPosition());
+                int position = orderViewHolder.getAdapterPosition();
+                Log.i("test","deleting the order at index "+position);
+                //check if index of item to be deleted is valid
+                if(position!=RecyclerView.NO_POSITION){
+                    deleteFoodBundle(position);
+                    dataChanged();
+                    notifyDataSetChanged(); //required to update the UI
+                }
+
             }
         });
     }
@@ -90,5 +121,9 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
                 }
             });
         }
+    }
+
+    public interface OnDataChangedListener { //listener to allow notifyDataSetChanged() to update view even when there's no more visible view
+        void onDataChanged();
     }
 }

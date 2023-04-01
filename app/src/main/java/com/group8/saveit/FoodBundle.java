@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+//Implementing Parcelable so Restaurant activity can pass foodbundle array as serializable extra to ordersummary activity
 public class FoodBundle implements Parcelable {
     private long id;
     private String bundleName;
