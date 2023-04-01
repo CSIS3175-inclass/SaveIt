@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">Save It</string>
+    <string name="app_name">Final Project</string>
+    <string name="txtTitle">SAVE IT!</string>
+    <string name="txtWelcome">Welcome</string>
+    <string name="txtManagerName">Manager Name!</string>
+    <string name="btnManageBundles">Manage Food Bundles</string>
+    <string name="txtImage">An Image</string>
+    <string name="btnCustomerOrders">Customer Orders</string>
+    <string name="addTitle">Add Food Bundle</string>
+    <string name="lblBundle">Bundle</string>
+    <string name="hintBundleName">Bundle Name</string>
+    <string name="lblItems">Items</string>
+    <string name="addButton">Add</string>
+    <string name="btnSave">Save</string>
+    <string name="hintItemDescription">Item Description</string>
+    <string name="lblPrice">Price</string>
+    <string name="hintPrice">Price</string>
+    <string name="btnFoodBundles">Your food bundles</string>
+    <string name="lblYourFoodBundles">Your Food Bundles</string>
+    <string name="txtBundleID">Bundle ID: </string>
+    <string name="txtItems">Items</string>
+    <string name="txtListItems">Item 1 Item 2</string>
+    <string name="txtPrice">Price:</string>
 </resources>
