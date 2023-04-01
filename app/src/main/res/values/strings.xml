@@ -6,4 +6,13 @@
     <string name="txtTotal">total</string>
     <string name="btnOrder">order</string>
     <string name="txtDefaultTotal">$0</string>
+    <string name="txtOrderSummary">Order Summary</string>
+    <string name="txtDeliveryOptions">Delivery Option</string>
+    <string name="radioOption1">Pick-up</string>
+    <string name="radioOption2">Delivery</string>
+    <string name="txtAddress">Address</string>
+    <string name="hintStreet">Street#</string>
+    <string name="hintCity">City</string>
+    <string name="hintPostalCode">Postal Code</string>
+    <string name="btnConfirmOrder">Confirm Order</string>
 </resources>

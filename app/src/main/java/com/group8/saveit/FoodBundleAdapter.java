@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//Adapter for FoodBundleFragment
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
+//Adapter for recycler view in FoodBundleFragment
+public class FoodBundleAdapter extends RecyclerView.Adapter<FoodBundleAdapter.MyViewHolder> {
     Context context;
     ArrayList<FoodBundle> FoodBundles;
     LayoutInflater layoutInflater;
@@ -32,7 +32,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         void onFoodBundleChecked(double price);
     }
 
-    public CustomAdapter(Context context, ArrayList<FoodBundle> foodBundles, OnFoodBundleCheckedListener onFoodBundleCheckedListener) {
+    public FoodBundleAdapter(Context context, ArrayList<FoodBundle> foodBundles, OnFoodBundleCheckedListener onFoodBundleCheckedListener) {
         this.context = context;
         FoodBundles = foodBundles;
         this.layoutInflater = LayoutInflater.from(context);
@@ -88,8 +88,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     onFoodBundleCheckedListener.onFoodBundleChecked(foodBundle.getPrice());
+                    foodBundle.setChecked(isChecked); //set isChecked to true when foodbundle is checked
                 } else {
                     onFoodBundleCheckedListener.onFoodBundleChecked(-foodBundle.getPrice());
+                    foodBundle.setChecked(isChecked);//set isChecked to false when foodbundle is unchecked
                 }
             }
         });
