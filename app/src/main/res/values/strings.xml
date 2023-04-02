@@ -15,4 +15,11 @@
     <string name="hintCity">City</string>
     <string name="hintPostalCode">Postal Code</string>
     <string name="btnConfirmOrder">Confirm Order</string>
+    <string name="txtCurrentOrders">Current Orders</string>
+    <string name="btnGenerateReport">Generate Report</string>
+    <string name="txtOrderId">Order ID:</string>
+    <string name="txtCustomer">Customer:</string>
+    <string name="txtDate">mm/dd/yyyy</string>
+    <string name="txtCompleted">Completed</string>
+    <string name="txtDate2">Order made on:</string>
 </resources>

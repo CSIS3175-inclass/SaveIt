@@ -1,5 +1,7 @@
 package com.group8.saveit;
 
+import static android.os.Build.VERSION_CODES.S;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,7 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -18,6 +25,8 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
     double total;
     TextView totalPrice;
     ArrayList<FoodBundle> foodBundles;
+
+    Button completeOrder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +35,10 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
         total=0;
         Intent intent=getIntent();
         totalPrice = findViewById(R.id.totalPrice);
+        completeOrder=findViewById(R.id.confirmOrderBtn);
         if(intent!=null){
             ArrayList<FoodBundle> selectedFoodBundles=(ArrayList<FoodBundle>) intent.getSerializableExtra("selectedFoodBundles");
             foodBundles=selectedFoodBundles;
-            Log.i("test",selectedFoodBundles.get(0).getBundleName());
             recyclerView=findViewById(R.id.orderRecyclerView);
 //            recyclerView.setLayoutManager(new GridLayoutManager(this,1));
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -41,7 +50,21 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
             adapter.notifyDataSetChanged();
         }
 
-
+        completeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(foodBundles.isEmpty()){
+                    Log.i("test","Please select a food bundle before placing your order in "+ OrderSummaryActivity.this);
+//                    Toast.makeText(OrderSummaryActivity.this,"Please select a food bundle before placing your order",Toast.LENGTH_LONG).show();
+                    Toast.makeText(OrderSummaryActivity.this,
+                            "Weight entered should be less than 225 Kg",
+                            Toast.LENGTH_LONG).show();
+                }
+                else{
+                    startActivity(new Intent(OrderSummaryActivity.this,CurrentOrdersActivity.class));
+                }
+            }
+        });
     }
 
     @Override
