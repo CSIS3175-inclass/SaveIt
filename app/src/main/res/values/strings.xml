@@ -6,4 +6,11 @@
     <string name="btn_city4">Burnaby</string>
     <string name="btn_city_search">Search</string>
     <string name="favoriteRestraunts">Favourite Restraunts</string>
+    <string name="thankYou">Thank You</string>
+    <string name="orderId">Order ID:</string>
+    <string name="restaurantName">RestaurantName: </string>
+    <string name="address">Address: </string>
+    <string name="status">Status: </string>
+    <string name="total">Total- </string>
+    <string name="backToTheRestaurant">Back to the Restaurant</string>
 </resources>

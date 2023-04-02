@@ -130,6 +130,7 @@
             android:id="@+id/home_icon"
             android:layout_width="104dp"
             android:layout_height="match_parent"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/home" />
 
         <ImageButton
@@ -137,6 +138,7 @@
             android:layout_width="104dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="104dp"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/history" />
 
         <ImageButton
@@ -144,6 +146,7 @@
             android:layout_width="104dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="208dp"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/favorite" />
 
         <ImageButton
@@ -151,6 +154,7 @@
             android:layout_width="104dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="312dp"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/profile" />
     </FrameLayout>
 

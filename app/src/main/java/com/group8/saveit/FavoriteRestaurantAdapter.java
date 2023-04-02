@@ -15,47 +15,50 @@ public class FavoriteRestaurantAdapter extends RecyclerView.Adapter {
     private String[] arr1;
     private int arr2[];
     Context context;
-    FavortiteItemClickListner clickListner;
+    FavoriteItemClickListner clickListner;
 
-    FavoriteRestaurantAdapter(Context context, String arr1[], int arr2[]){
+    FavoriteRestaurantAdapter(Context context, String arr1[], int arr2[], FavoriteItemClickListner clklsnr){
         this.context = context;
         this.arr1=arr1;
         this.arr2=arr2;
+        this.clickListner = clklsnr;
     }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_favorite_restraunt_row,parent,false);
-        FavroiteItemView dd = new FavroiteItemView(view);
+        FavoriteItemView dd = new FavoriteItemView(view);
         return dd;
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        ((FavroiteItemView)holder).restaurantNametextView.setText(arr1[position]);
-        ((FavroiteItemView)holder).restaurantImageView.setImageResource(arr2[position]);
+        ((FavoriteItemView)holder).restaurantNametextView.setText(arr1[position]);
+        ((FavoriteItemView)holder).restaurantImageView.setImageResource(arr2[position]);
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return arr1.length;
     }
 
 
-    class FavroiteItemView extends  RecyclerView.ViewHolder {
+    class FavoriteItemView extends  RecyclerView.ViewHolder {
 
         TextView restaurantNametextView;
         ImageView restaurantImageView;
 
-        public FavroiteItemView(@NonNull View itemView) {
+        public FavoriteItemView(@NonNull View itemView) {
             super(itemView);
             this.restaurantImageView = itemView.findViewById(R.id.restaurantImage);
             this.restaurantNametextView = itemView.findViewById(R.id.restaurantName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    clickListner.itemCLicked();
+
+
+                    clickListner.itemCLicked(view,getAdapterPosition());
                 }
             });
 
@@ -63,9 +66,9 @@ public class FavoriteRestaurantAdapter extends RecyclerView.Adapter {
     }
 
 
-    interface FavortiteItemClickListner {
+    interface FavoriteItemClickListner {
 
-        public void itemCLicked();
+        public void itemCLicked(View view, int position);
     }
 
 }

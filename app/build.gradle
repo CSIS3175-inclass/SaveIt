@@ -5,7 +5,6 @@ plugins {
 android {
     namespace 'com.group8.saveit'
     compileSdk 33
-
     defaultConfig {
         applicationId "com.group8.saveit"
         minSdk 21

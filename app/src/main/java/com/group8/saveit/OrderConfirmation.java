@@ -4,20 +4,31 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.TextView;
 
-public class RestaurantSearch extends AppCompatActivity {
+public class OrderConfirmation extends AppCompatActivity {
 
-    String arr1[] = {"res1","res2","res3","res4"};
-    int arr2[] = {R.drawable.pic,R.drawable.pic,R.drawable.pic,R.drawable.pic};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_search);
-        ListView listView = findViewById(R.id.listviewRestraunt);
-        RestrauntSearchAdapter adapter =new RestrauntSearchAdapter(getApplicationContext(),arr1,arr2);
-        listView.setAdapter(adapter);
+        setContentView(R.layout.activity_order_confirmation);
+
+        TextView orderId = findViewById(R.id.textViewOrderId);
+        TextView restaurantName = findViewById(R.id.textViewRestaurantName);
+        TextView address = findViewById(R.id.textViewAddress);
+        TextView status = findViewById(R.id.textViewStatus);
+        TextView total = findViewById(R.id.textViewTotal);
+
+        Button backToReastaurant = findViewById(R.id.btnBackToRestaurant);
+
+        backToReastaurant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         ImageButton home = findViewById(R.id.home_icon);
 
@@ -54,5 +65,7 @@ public class RestaurantSearch extends AppCompatActivity {
 
             }
         });
+
+
     }
 }
