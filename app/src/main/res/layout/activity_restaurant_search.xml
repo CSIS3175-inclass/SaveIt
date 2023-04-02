@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RestaurantSearch">
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="151dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="128dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnCity1"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/btn_city1"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextCitySearch"
+        app:layout_constraintEnd_toStartOf="@+id/btnCity2"
+        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/listviewRestraunt" />
+
+    <Button
+        android:id="@+id/btnCity2"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/btn_city2"
+        android:textSize="9sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnCity3"
+        app:layout_constraintStart_toEndOf="@+id/btnCity1"
+        app:layout_constraintTop_toBottomOf="@+id/listviewRestraunt" />
+
+    <Button
+        android:id="@+id/btnCity3"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/btn_city3"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextCitySearch"
+        app:layout_constraintEnd_toStartOf="@+id/btnCity4"
+        app:layout_constraintStart_toEndOf="@+id/btnCity2"
+        app:layout_constraintTop_toBottomOf="@+id/listviewRestraunt"
+        app:layout_constraintVertical_bias="0.111" />
+
+    <Button
+        android:id="@+id/btnCity4"
+        android:layout_width="91dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/btn_city4"
+        android:textSize="9sp"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextCitySearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCity3"
+        app:layout_constraintTop_toBottomOf="@+id/listviewRestraunt"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <Button
+        android:id="@+id/btnCitySearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/btn_city_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCity3"
+        app:layout_constraintVertical_bias="0.009" />
+
+    <EditText
+        android:id="@+id/editTextTextCitySearch"
+        android:layout_width="228dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="Search for your city"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+        app:layout_constraintEnd_toStartOf="@+id/btnCitySearch"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCity2"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ListView
+        android:id="@+id/listviewRestraunt"
+        android:layout_width="369dp"
+        android:layout_height="335dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appName" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="416dp"
+        android:layout_height="68dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCitySearch">
+
+        <ImageButton
+            android:id="@+id/home_icon"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/home" />
+
+        <ImageButton
+            android:id="@+id/history_icon"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="104dp"
+            app:srcCompat="@drawable/history" />
+
+        <ImageButton
+            android:id="@+id/favorite_icon"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="208dp"
+            app:srcCompat="@drawable/favorite" />
+
+        <ImageButton
+            android:id="@+id/profile_icon"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="312dp"
+            app:srcCompat="@drawable/profile" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

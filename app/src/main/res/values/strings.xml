@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Save It</string>
+    <string name="app_name">SAVE IT!</string>
+    <string name="btn_city1">Surrey</string>
+    <string name="btn_city2">New West</string>
+    <string name="btn_city3">Richmond</string>
+    <string name="btn_city4">Burnaby</string>
+    <string name="btn_city_search">Search</string>
+    <string name="favoriteRestraunts">Favourite Restraunts</string>
 </resources>
