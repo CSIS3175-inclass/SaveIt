@@ -63,6 +63,17 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                                                             from,
                                                             to);
         holder.foodBundles.setAdapter(foodBundleAdapter);
+
+        //Set listview's height to match the number of subitems
+        int listViewHeight = 0;
+        for (int i = 0; i < foodBundles.size(); i++) {
+            View listItem = foodBundleAdapter.getView(i, null, holder.foodBundles);
+            listItem.measure(0,0);
+            listViewHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = holder.foodBundles.getLayoutParams();
+        params.height = listViewHeight + (holder.foodBundles.getDividerHeight() * (foodBundles.size() - 1));
+        holder.foodBundles.setLayoutParams(params);
     }
 
     @Override

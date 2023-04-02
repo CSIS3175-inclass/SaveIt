@@ -72,6 +72,17 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
         SimpleAdapter listAdapter=new SimpleAdapter(layoutInflater.getContext(),itemList,R.layout.food_bundle_subitem,from,to);
         orderViewHolder.listView.setAdapter(listAdapter);
 
+        //Set listview's height to match the number of subitems
+        int listViewHeight = 0;
+        for (int i = 0; i < items.length; i++) {
+            View listItem = listAdapter.getView(i, null, orderViewHolder.listView);
+            listItem.measure(0,0);
+            listViewHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = orderViewHolder.listView.getLayoutParams();
+        params.height = listViewHeight + (orderViewHolder.listView.getDividerHeight() * (items.length - 1));
+        orderViewHolder.listView.setLayoutParams(params);
+
         //update order's total price
         double total = 0;
         for(int i = 0; i< foodBundles.size();i++){

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/customer2"
@@ -78,21 +78,11 @@
         android:id="@+id/completedCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginTop="125dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/txtCompleted"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/orderedBundles" />
-
-    <TextView
-        android:id="@+id/deliveryType2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:text="@string/radioOption1"
-        app:layout_constraintEnd_toEndOf="@+id/deliveryAddress2"
-        app:layout_constraintStart_toEndOf="@+id/deliveryAddress2"
-        app:layout_constraintTop_toTopOf="@+id/orderedBundles" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/deliveryAddress2"
@@ -119,21 +109,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="17dp"
         android:text="@string/txtDeliveryOptions"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/orderedBundles" />
+        app:layout_constraintTop_toBottomOf="@+id/customer" />
+
+    <TextView
+        android:id="@+id/deliveryType2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="@string/radioOption1"
+        app:layout_constraintEnd_toEndOf="@+id/deliveryAddress2"
+        app:layout_constraintStart_toEndOf="@+id/deliveryAddress2"
+        app:layout_constraintTop_toBottomOf="@+id/customer2" />
 
     <ListView
         android:id="@+id/orderedBundles"
-        android:layout_width="0dp"
+        android:layout_width="383dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="14dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="14dp"
         android:background="#673AB7"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customer" />
+        app:layout_constraintTop_toBottomOf="@+id/completedCheck"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/food_bundle_subitem" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

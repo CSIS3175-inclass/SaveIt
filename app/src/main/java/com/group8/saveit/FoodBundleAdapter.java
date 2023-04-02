@@ -71,14 +71,13 @@ public class FoodBundleAdapter extends RecyclerView.Adapter<FoodBundleAdapter.My
 
         // set the height of the ListView dynamically
         int listViewHeight = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(holder.listView.getWidth(), View.MeasureSpec.AT_MOST);
-        for (int i = 0; i < listAdapter.getCount(); i++) {
+        for (int i = 0; i < items.length; i++) {
             View listItem = listAdapter.getView(i, null, holder.listView);
-            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            listItem.measure(0,0);
             listViewHeight += listItem.getMeasuredHeight();
         }
         ViewGroup.LayoutParams params = holder.listView.getLayoutParams();
-        params.height = listViewHeight + (holder.listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        params.height = listViewHeight + (holder.listView.getDividerHeight() * (items.length - 1));
         holder.listView.setLayoutParams(params);
 
         //checkbox listener

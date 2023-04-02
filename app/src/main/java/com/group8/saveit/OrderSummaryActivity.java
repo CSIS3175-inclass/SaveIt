@@ -57,7 +57,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
                     Log.i("test","Please select a food bundle before placing your order in "+ OrderSummaryActivity.this);
 //                    Toast.makeText(OrderSummaryActivity.this,"Please select a food bundle before placing your order",Toast.LENGTH_LONG).show();
                     Toast.makeText(OrderSummaryActivity.this,
-                            "Weight entered should be less than 225 Kg",
+                            "Please select a food bundle before placing your order",
                             Toast.LENGTH_LONG).show();
                 }
                 else{
