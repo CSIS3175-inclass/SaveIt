@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Save It</string>
     <string name="txtRestaurantName">A restaurant</string>
+    <string name="RestaurantName">Enter the name of the Restuarent</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txtTotal">total</string>
     <string name="btnOrder">order</string>
@@ -61,4 +62,19 @@
     <string name="txtPrice">Price:</string>
     <string name="btnAddBundles">Add Bundles</string>
     <string name="btnDeleteSelected">Delete Selected</string>
+    <string name="passwordInput">Enter your password</string>
+    <string name="emailInput">Enter your Email here</string>
+    <string name="btnLabelLogin">LOGIN</string>
+    <string name="RegisterHere">Click here to register.!</string>
+    <string name="Zipcode">Zipcode</string>
+    <string name="City">City</string>
+    <string name="Street">Street</string>
+    <string name="txtemail" >Enter your Email</string>
+    <string name="name" >Enter your Name</string>
+    <string name="password" >Enter your Password</string>
+    <string name="phone">Enter your Phone Number</string>
+    <string name="Register">REGISTER</string>
+    <string name="managerREgister">Click here to register as a manager</string>
+
+
 </resources>
