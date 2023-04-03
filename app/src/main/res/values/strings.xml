@@ -21,7 +21,6 @@
     <string name="txtDate">mm/dd/yyyy</string>
     <string name="txtCompleted">Completed</string>
     <string name="txtDate2">Order made on:</string>
-    <string name="app_name">SAVE IT!</string>
     <string name="btn_city1">Surrey</string>
     <string name="btn_city2">New West</string>
     <string name="btn_city3">Richmond</string>
