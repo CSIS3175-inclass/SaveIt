@@ -61,7 +61,15 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
                             Toast.LENGTH_LONG).show();
                 }
                 else{
-                    startActivity(new Intent(OrderSummaryActivity.this,CurrentOrdersActivity.class));
+//                    CustomerOrder newOrder = new CustomerOrder();
+                    int orderId;
+                    String restaurantName;
+                    String address;
+                    String status;
+
+//                    startActivity(new Intent(OrderSummaryActivity.this,CurrentOrdersActivity.class));
+                    Intent orderConfirmationIntent = new Intent(OrderSummaryActivity.this,OrderConfirmation.class);
+                    startActivity(orderConfirmationIntent);
                 }
             }
         });

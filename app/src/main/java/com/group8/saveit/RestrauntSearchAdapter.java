@@ -1,6 +1,7 @@
 package com.group8.saveit;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,17 @@ public class RestrauntSearchAdapter extends BaseAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.restaurantImage);
         textView.setText(arr1[i]);
         imageView.setImageResource(arr2[i]);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //take to corresponding restaurant
+                Intent intent = new Intent(ctx,RestaurantActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //this flag is required when starting an activity from outside an activity
+                ctx.startActivity(intent);
+            }
+        });
+
         return view;
     }
 }

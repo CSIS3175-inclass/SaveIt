@@ -25,6 +25,13 @@
             android:exported="false" />
         <activity
             android:name=".OrderSummaryActivity"
+            android:exported="false"
+            />
+        <activity
+            android:name=".managerRegister"
+            android:exported="false" />
+        <activity
+            android:name=".Registration"
             android:exported="false" />
         <activity
             android:name=".RestaurantActivity"
