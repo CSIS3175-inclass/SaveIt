@@ -67,10 +67,9 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
                     String address;
                     String status;
 
-                    startActivity(new Intent(OrderSummaryActivity.this,CurrentOrdersActivity.class));
-//                    Intent orderConfirmationIntent = new Intent(OrderSummaryActivity.this,OrderConfirmation.class);
-//
-//                    startActivity(orderConfirmationIntent);
+//                    startActivity(new Intent(OrderSummaryActivity.this,CurrentOrdersActivity.class));
+                    Intent orderConfirmationIntent = new Intent(OrderSummaryActivity.this,OrderConfirmation.class);
+                    startActivity(orderConfirmationIntent);
                 }
             }
         });

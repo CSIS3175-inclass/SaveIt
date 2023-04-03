@@ -25,7 +25,9 @@ startActivity(new Intent(MainActivity.this,Registration.class));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,RestaurantActivity.class));
+//                startActivity(new Intent(MainActivity.this,RestaurantActivity.class));
+                //take to Restaurant search activity
+                startActivity(new Intent(MainActivity.this,RestaurantSearch.class));
             }
         });
     }
