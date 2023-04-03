@@ -8,21 +8,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class FavoriteRestaurants extends AppCompatActivity implements FavoriteRestaurantAdapter.FavoriteItemClickListner {
-
-    String arr1[] = {"res1","res2","res3","res4"};
-    int arr2[] = {R.drawable.pic,R.drawable.pic,R.drawable.pic,R.drawable.pic};
+public class OrderHistory extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favorite_restaurants);
-        //ListView listView = findViewById(R.id.listviewFavoriteRestaurant);
-        RecyclerView recyclerView = findViewById(R.id.recyclerviewFavoriteRestaurant);
-        FavoriteRestaurantAdapter favoriteRestaurantAdapter =new FavoriteRestaurantAdapter(getApplicationContext(),arr1,arr2,this);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setContentView(R.layout.activity_order_history);
 
-        recyclerView.setAdapter(favoriteRestaurantAdapter);
+        RecyclerView ordersHistoryRecyclerView = findViewById(R.id.recyclerviewFavoriteRestaurants);
+        OrderHistoryAdapter orderHistoryAdapter =new OrderHistoryAdapter(getApplicationContext());
+        ordersHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ordersHistoryRecyclerView.setAdapter(orderHistoryAdapter);
 
         ImageButton home = findViewById(R.id.home_icon);
 
@@ -59,10 +55,5 @@ public class FavoriteRestaurants extends AppCompatActivity implements FavoriteRe
 
             }
         });
-    }
-
-    @Override
-    public void itemCLicked(View view, int position){
-        //arr1[position]
     }
 }
