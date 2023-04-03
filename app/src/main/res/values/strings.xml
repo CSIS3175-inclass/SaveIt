@@ -1,9 +1,41 @@
 <resources>
     <string name="app_name">Save It</string>
     <string name="txtRestaurantName">A restaurant</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="txtTotal">total</string>
     <string name="btnOrder">order</string>
     <string name="txtDefaultTotal">$0</string>
+    <string name="txtOrderSummary">Order Summary</string>
+    <string name="txtDeliveryOptions">Delivery Option</string>
+    <string name="radioOption1">Pick-up</string>
+    <string name="radioOption2">Delivery</string>
+    <string name="txtAddress">Address</string>
+    <string name="hintStreet">Street#</string>
+    <string name="hintCity">City</string>
+    <string name="hintPostalCode">Postal Code</string>
+    <string name="btnConfirmOrder">Confirm Order</string>
+    <string name="txtCurrentOrders">Current Orders</string>
+    <string name="btnGenerateReport">Generate Report</string>
+    <string name="txtOrderId">Order ID:</string>
+    <string name="txtCustomer">Customer:</string>
+    <string name="txtDate">mm/dd/yyyy</string>
+    <string name="txtCompleted">Completed</string>
+    <string name="txtDate2">Order made on:</string>
+    <string name="btn_city1">Surrey</string>
+    <string name="btn_city2">New West</string>
+    <string name="btn_city3">Richmond</string>
+    <string name="btn_city4">Burnaby</string>
+    <string name="btn_city_search">Search</string>
+    <string name="favoriteRestraunts">Favourite Restraunts</string>
+    <string name="thankYou">Thank You</string>
+    <string name="orderId">Order ID:</string>
+    <string name="restaurantName">RestaurantName: </string>
+    <string name="address">Address: </string>
+    <string name="status">Status: </string>
+    <string name="total">Total- </string>
+    <string name="backToTheRestaurant">Back to the Restaurant</string>
+    <string name="odersHistory">Orders History</string>
+    <string name="date">Date</string>
+    <string name="bundles">Bundles</string>
+    <string name="orderStatus">Order Status: </string>
 </resources>

@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 //implement CustomAdapter.OnFoodBundleCheckedListener to access updated total price and update Textview accordingly
-public class FoodBundleFragment extends Fragment implements CustomAdapter.OnFoodBundleCheckedListener {
+public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.OnFoodBundleCheckedListener {
     private ArrayList<FoodBundle> foodBundles = new ArrayList<>();
     private RecyclerView recyclerView;
     private double total = 0.0;
@@ -27,6 +26,10 @@ public class FoodBundleFragment extends Fragment implements CustomAdapter.OnFood
 
     public double getTotal() {
         return total;
+    }
+
+    public ArrayList<FoodBundle> getFoodBundles() {
+        return foodBundles;
     }
 
     @Override
@@ -51,15 +54,15 @@ public class FoodBundleFragment extends Fragment implements CustomAdapter.OnFood
         recyclerView.setLayoutManager(new GridLayoutManager
                 (getContext(),1));
         recyclerView.setHasFixedSize(true);
-        CustomAdapter myAdapter = new CustomAdapter(getContext(),foodBundles, this);
+        FoodBundleAdapter myAdapter = new FoodBundleAdapter(getContext(),foodBundles, this);
         recyclerView.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
 
     }
 
     private void loadData(){
-        FoodBundle foodBundleOne = new FoodBundle("FoodBundleOne",R.drawable.imag1,10.99);
-        FoodBundle foodBundleTwo = new FoodBundle("FoodBundleTwo",R.drawable.image2,9.99);
+        FoodBundle foodBundleOne = new FoodBundle(1,"FoodBundleOne",R.drawable.imag1,10.99);
+        FoodBundle foodBundleTwo = new FoodBundle(2,"FoodBundleTwo",R.drawable.image2,9.99);
         String[] items ={"item1","item2"};
         foodBundleOne.setItems(items);
         foodBundleTwo.setItems(items);
