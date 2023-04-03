@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageFoodBundleActivity">
+    <TextView
+        android:id="@+id/titleManageBundles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="12dp"
+        android:text="@string/txtTitle"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/lblYourFoodBundles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblYourFoodBundles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblYourFoodBundles"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleManageBundles" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="158dp"
+        app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblYourFoodBundles"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/frameBottomMenu"
+        android:layout_width="410dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:background="#d6d7d7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddBundles">
+
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/txtImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_img" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/txtImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/history_img"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="end"
+            android:contentDescription="@string/txtImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/profile_img" />
+
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnAddBundles"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="417dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="43dp"
+        android:text="@string/btnAddBundles"
+        app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnDeleteSelected"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnDeleteSelected"
+        android:layout_width="0dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="43dp"
+        android:text="@string/btnDeleteSelected"
+        app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
+        app:layout_constraintEnd_toStartOf="@+id/btnAddBundles"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

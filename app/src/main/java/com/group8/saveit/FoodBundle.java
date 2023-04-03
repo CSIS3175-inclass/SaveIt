@@ -22,6 +22,12 @@ public class FoodBundle implements Parcelable {
         this.price = price;
     }
 
+    public FoodBundle(long id, String bundleName, double price) {
+        this.id = id;
+        this.bundleName = bundleName;
+        this.price = price;
+    }
+
     protected FoodBundle(Parcel in) {
         id = in.readLong();
         bundleName = in.readString();
