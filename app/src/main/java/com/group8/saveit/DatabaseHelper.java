@@ -13,13 +13,16 @@ import androidx.annotation.Nullable;
 import com.group8.saveit.FoodBundle;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 10;
+    final static int DATABASE_VERSION = 12;
 
+    //Restaurant table
     final static String RESTAURANT = "Restaurant_table";
     final static String R_COL1 = "RID";
     final static String R_COL2 = "Name";
@@ -30,12 +33,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String R_COL7 = "City";
     final static String R_COL8 = "Postal_Code";
 
+    //FoodBundle Table
     final static String BUNDLES = "Bundles_table";
     final static String B_COL1 = "BID";
     final static String B_COL2 = "Price";
     final static String B_COL3 = "Items";
     final static String B_COL4 = "RID";
 
+    //Customer table
     final static String USER = "User_table";
     final static String U_COL1 = "Email";
     final static String U_COL2 = "Name";
@@ -46,12 +51,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     final static String U_COL7 = "City";
     final static String U_COL8 = "Postal_Code";
 
+    //Manager table
     final static String MANAGER = "Manager_table";
     final static String M_COL1 = "Email";
     final static String M_COL2 = "Name";
     final static String M_COL3 = "Password";
     final static String M_COL4 = "Phone_Num";
     final static String M_COL5 = "RID";
+
+    //Order table
+    final static String ORDER = "Order_table";
+    final static String O_COL1 = "OID";
+    final static String O_COL2 = "OrderDate";
+    final static String O_COL3 = "OrderStatus"; //true for completed, else false
+    final static String O_COL4 = "RID"; // connects to restaurant table
+    final static String O_COL5 = "Email"; //connects to customer table
+    final static String O_COL6 = "Delivery_Option"; //1 for Delivery and 2 for Pick-up
+    final static String O_COL7 = "Address";
+
+    //Order_FoodBundle
+    final static String ORDER_BUNDLE = "Order_Bundle_table";
+    final static String OB_COL1 = "OID"; //composite key
+    final static String OB_COL2 = "BID"; //composite key
 
 
     public DatabaseHelper(@Nullable Context context) {
@@ -75,7 +96,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         query = "CREATE TABLE " + BUNDLES + " (" +
                 B_COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                B_COL2 + " INTEGER, " +
+                B_COL2 + " FLOAT, " +
                 B_COL3 + " TEXT, " +
                 B_COL4 + " INTEGER, " +
                 "FOREIGN KEY(" + B_COL4 + ") REFERENCES " + RESTAURANT + "(" + R_COL1 + ")" +
@@ -104,7 +125,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")";
         sqLiteDatabase.execSQL(query);
 
+        query = "CREATE TABLE " + ORDER + " (" +
+                O_COL1 + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                O_COL2 + " DATE," +
+                O_COL3 + " BOOLEAN," +
+                O_COL4 + " INTEGER," +
+                O_COL5 + " TEXT," +
+                O_COL6 + " INTEGER," +
+                O_COL7 + " TEXT," +
+                "FOREIGN KEY("+O_COL4+") REFERENCES "+RESTAURANT+"("+R_COL1+")," +
+                "FOREIGN KEY("+O_COL5+") REFERENCES "+USER+"("+U_COL1+")"
+                + ")";
 
+        sqLiteDatabase.execSQL(query);
+
+        query = "CREATE TABLE " + ORDER_BUNDLE + "(" +
+                OB_COL1 + " INTEGER, "+
+                OB_COL2 + " INTEGER, "+
+                "PRIMARY KEY("+OB_COL1+","+OB_COL2+"),"+
+                "FOREIGN KEY("+OB_COL1+") REFERENCES "+ORDER+"("+O_COL1+"),"+
+                "FOREIGN KEY("+OB_COL2+") REFERENCES "+BUNDLES+"("+B_COL1+"))";
+        sqLiteDatabase.execSQL(query);
     }
 
     @Override
@@ -114,6 +155,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + BUNDLES);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + USER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + MANAGER);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER_BUNDLE);
         onCreate(sqLiteDatabase);
 
     }
@@ -157,9 +200,121 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteBundle(int bundleId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(BUNDLES, B_COL1 + "=?", new String[]{String.valueOf(bundleId)});
+
     }
 
+    //Get foodbundle by id
+    @SuppressLint("Range")
+    public FoodBundle getFoodBundleById(int foodBundleId){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+BUNDLES+" WHERE "+B_COL1+"=?",new String[]{Integer.toString(foodBundleId)});
 
+        FoodBundle foodBundle = null;
+        if(cursor.moveToFirst() && cursor.getColumnIndex(B_COL3)>-1 && cursor.getColumnIndex(B_COL1)>-1 && cursor.getColumnIndex(B_COL2)>-1){
+            String items = cursor.getString(cursor.getColumnIndex(B_COL3));
+            String[] itemList = items.split(",");
+            foodBundle = new FoodBundle(cursor.getInt(cursor.getColumnIndex(B_COL1)),
+                    cursor.getDouble(cursor.getColumnIndex(B_COL2)),
+                    itemList);
+        }
+        cursor.close();
+        return  foodBundle;
 
+    }
+    //Get FoodBundles of a specific restaurant
+    @SuppressLint("Range")
+    public ArrayList<FoodBundle> getFoodBundleByRestaurant(int restaurantId){
+        SQLiteDatabase db= this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+BUNDLES+" WHERE "+B_COL4+"=?",new String[]{Integer.toString(restaurantId)});
+        ArrayList<FoodBundle> foodBundles = new ArrayList<>();
 
+        if(cursor.moveToFirst()){
+            do {
+                //make sure the index use is valid and the returned food bundle is not null
+                if(cursor.getColumnIndex(B_COL1)>-1){
+                    FoodBundle foodBundle= getFoodBundleById(cursor.getInt(cursor.getColumnIndex(B_COL1)));
+                    if (foodBundle!=null)
+                        foodBundles.add(foodBundle);
+                }
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return foodBundles;
+    }
+
+    //add New Customer order
+    public long addCustomerOrder(Date date,boolean isCompleted, int restaurantId, String customerEmail, int deliveryOption,String address){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(O_COL2, String.valueOf(date));
+        contentValues.put(O_COL3, isCompleted);
+        contentValues.put(O_COL4, restaurantId);
+        contentValues.put(O_COL5, customerEmail);
+        contentValues.put(O_COL6, deliveryOption);
+        contentValues.put(O_COL7, address);
+
+//        returns the added Order's ID if inserted successfully, else return negative number
+        return db.insert(ORDER,null,contentValues);
+
+    }
+
+    //update customer order status
+    public boolean updateOrderStatus(int orderId,boolean status){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(O_COL3,status);
+
+        // returns true if updated status successfuly else false
+        return db.update(ORDER,contentValues,O_COL1+"=?",new String[]{Integer.toString(orderId)}) > 0;
+    }
+
+    //delete an order
+    public boolean deleteOrder(int orderId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int deletedOrder = db.delete(ORDER,O_COL1+"=?",new String[]{Integer.toString(orderId)});
+        //attempt to delete record in ORDER TABLE FIRST, THEN ORDER_BUNDLE Table
+        if(deletedOrder>0)
+        {
+            int deletedOrderBundle = db.delete(ORDER_BUNDLE,OB_COL1+"=?",new String[]{Integer.toString(orderId)});
+            if(deletedOrder>0){
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+
+    }
+    //add foodbundle to order
+    public boolean addBundleToOrder(int orderId,int bundleId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(OB_COL1,orderId);
+        contentValues.put(OB_COL2,bundleId);
+        //returns true when bundle is added successfully to the order
+        return db.insert(ORDER_BUNDLE,null,contentValues)>0;
+    }
+    //get foodbundles by order
+    @SuppressLint("Range")
+    public ArrayList<FoodBundle> getFoodBundleByOrderId(int orderId){
+        SQLiteDatabase db= this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ORDER_BUNDLE+" WHERE "+OB_COL1+"=?",new String[]{Integer.toString(orderId)});
+        ArrayList<FoodBundle> foodBundles = new ArrayList<>();
+
+        if(cursor.moveToFirst()){
+            do {
+                //make sure the index use is valid and the returned food bundle is not null
+                if(cursor.getColumnIndex(OB_COL2)>-1){
+                    FoodBundle foodBundle= getFoodBundleById(cursor.getInt(cursor.getColumnIndex(OB_COL2)));
+                    if (foodBundle!=null)
+                        foodBundles.add(foodBundle);
+                }
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return foodBundles;
+    }
 }
