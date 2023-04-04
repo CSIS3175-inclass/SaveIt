@@ -10,15 +10,12 @@ import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 
-import com.group8.saveit.FoodBundle;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 10;
+    final static int DATABASE_VERSION = 1;
 
     final static String RESTAURANT = "Restaurant_table";
     final static String R_COL1 = "RID";
@@ -118,7 +115,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean addBundleData(Integer price, String items)
+public boolean addData(String name, String email, String password, String phone, String street, String city, String zipcode){
+        SQLiteDatabase sqlLite=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+    values.put(U_COL1,email);
+    values.put(U_COL2,name);
+    values.put(U_COL3,password);
+    values.put(U_COL4,phone);
+    values.put(U_COL5,123);
+    values.put(U_COL6,street);
+    values.put(U_COL7,city);
+    values.put(U_COL8,zipcode);
+    long l = sqlLite.insert(USER,null,values);
+    if(l > 0)
+        return true;
+    else
+        return false;
+}
+public Boolean checkUsername(String username){
+        SQLiteDatabase sqlDB=this.getReadableDatabase();
+            Cursor c=sqlDB.rawQuery("Select * from User_table where Email=?",new String[] {username});
+            if(c.getCount()>0) {
+                return true;
+            }else{
+                return false;}
+    }
+public Boolean checkPassword(String username,String password) {
+    SQLiteDatabase sqlDB = this.getReadableDatabase();
+    Cursor c = sqlDB.rawQuery("Select * from User_table where Email=? and Password=?", new String[] {username,password});
+    if (c.getCount() > 0) {
+        return true;
+    } else {
+        return false;   }
+}
+
+    public boolean addBundleData(Integer price,String items)
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
