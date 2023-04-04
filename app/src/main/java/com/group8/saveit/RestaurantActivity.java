@@ -19,33 +19,50 @@ import java.util.Set;
 public class RestaurantActivity extends AppCompatActivity{
     Button orderBtn;
     ArrayList<FoodBundle> selectedFoodBundles= new ArrayList<FoodBundle>();
+    DatabaseHelper databaseHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant);
-        FoodBundleFragment foodBundleFragment=new FoodBundleFragment();
-        replaceFragment(foodBundleFragment); //replace BundlesContainerView with FoodBundleFragment
+        Intent intent = getIntent();
+        databaseHelper = new DatabaseHelper(this);
 
-        orderBtn=findViewById(R.id.order);
-        orderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //get all restaurant's foodbundles
-                ArrayList<FoodBundle> foodBundles= foodBundleFragment.getFoodBundles();
-                //add the ones that are checked to selectedFoodBundle
-                for(int i =0; i<foodBundles.size();i++){
-                    FoodBundle foodBundle=foodBundles.get(i);
-                    if(foodBundle.isChecked()){
-                        selectedFoodBundles.add(foodBundle);
+        if(intent!=null){
+
+            //get restaurantId from RestaurantSearch activity
+            int restaurantId = intent.getIntExtra("restaurantId",0);
+
+//            FoodBundleFragment foodBundleFragment=new FoodBundleFragment();
+            Log.i("test"," restaurant activity restaurantId "+ restaurantId+" database "+databaseHelper);
+            FoodBundleFragment foodBundleFragment=new FoodBundleFragment(databaseHelper,restaurantId);
+
+            //pass restaurantId and databasehelper to foodBundleFragment
+//            foodBundleFragment.setDatabaseHelper(databaseHelper);
+            replaceFragment(foodBundleFragment); //replace BundlesContainerView with FoodBundleFragment
+
+            orderBtn=findViewById(R.id.order);
+            orderBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //get all restaurant's foodbundles
+                    ArrayList<FoodBundle> foodBundles= foodBundleFragment.getFoodBundles();
+                    //add the ones that are checked to selectedFoodBundle
+                    for(int i =0; i<foodBundles.size();i++){
+                        FoodBundle foodBundle=foodBundles.get(i);
+                        if(foodBundle.isChecked()){
+                            selectedFoodBundles.add(foodBundle);
+                        }
                     }
-                }
 
-                //send selectedFoodBundle to OrderSummaryActivity
-                Intent intent = new Intent(RestaurantActivity.this,OrderSummaryActivity.class);
-                intent.putExtra("selectedFoodBundles",selectedFoodBundles);
-                startActivity(intent);
-            }
-        });
+                    //send selectedFoodBundle to OrderSummaryActivity
+                    Intent intent = new Intent(RestaurantActivity.this,OrderSummaryActivity.class);
+                    intent.putExtra("selectedFoodBundles",selectedFoodBundles);
+                    startActivity(intent);
+                }
+            });
+        }
+
+
     }
 
     private void replaceFragment(Fragment fragment) {

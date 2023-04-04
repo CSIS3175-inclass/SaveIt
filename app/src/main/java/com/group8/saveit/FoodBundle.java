@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 public class FoodBundle implements Parcelable {
     private long id;
     private String bundleName;
-    private int bundleImage;
+    private int bundleImage=R.drawable.imag1;
     private double price;
     private String[] items;
 
