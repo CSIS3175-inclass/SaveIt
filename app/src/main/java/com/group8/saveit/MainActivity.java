@@ -47,11 +47,14 @@ startActivity(new Intent(MainActivity.this,Registration.class));
             @Override
             public void onClick(View v) {
 
-            if(dbh.checkPassword(username.getText().toString(),password.getText().toString()))
+            if(dbh.checkPassword(username.getText().toString(),password.getText().toString())=="user")
             {
                 startActivity(new Intent(MainActivity.this, RestaurantSearch.class));
             }
-            else{
+           else if(dbh.checkPassword(username.getText().toString(),password.getText().toString())=="manager")
+                {
+                    startActivity(new Intent(MainActivity.this, HomeManagerActivity.class));
+                }else {
                 Toast.makeText(MainActivity.this,"incorrect password",Toast.LENGTH_LONG).show();
             }
 

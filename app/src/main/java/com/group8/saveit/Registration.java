@@ -56,10 +56,7 @@ DatabaseHelper dbh;
 
                 if(isInserted){
                     Toast.makeText(Registration.this,"data added",Toast.LENGTH_LONG).show();
-                    name.setText("");
-                    email.setText("");
-                    password.setText("");
-                    phone.setText("");
+                    startActivity(new Intent(Registration.this,MainActivity.class));
                 }
                 else{
                     Toast.makeText(Registration.this,"data not added",Toast.LENGTH_LONG).show();

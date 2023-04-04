@@ -69,12 +69,14 @@
     <string name="Zipcode">Zipcode</string>
     <string name="City">City</string>
     <string name="Street">Street</string>
-    <string name="txtemail" >Enter your Email</string>
-    <string name="name" >Enter your Name</string>
-    <string name="password" >Enter your Password</string>
+    <string name="txtemail">Enter your Email</string>
+    <string name="name">Enter your Name</string>
+    <string name="password">Enter your Password</string>
     <string name="phone">Enter your Phone Number</string>
     <string name="Register">REGISTER</string>
     <string name="managerREgister">Click here to register as a manager</string>
+    <string name="txtStart">Start Time</string>
+    <string name="txtEndTIme">End Time</string>
 
 
 </resources>
