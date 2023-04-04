@@ -46,22 +46,48 @@ startActivity(new Intent(MainActivity.this,Registration.class));
         try {
             SQLiteDatabase db = databaseHelper.getWritableDatabase();
             db.execSQL("DELETE FROM Restaurant_table;"); //clear the table first
+            db.execSQL("DELETE FROM Bundles_table;"); //clear the table first
+            db.execSQL("DELETE FROM User_table;"); //clear the table first
+            db.execSQL("DELETE FROM Manager_table;"); //clear the table first
+
+            //read from file and load tables
+            //restaurant table
             InputStream inputStream = this.getAssets().open("Restaurant_table.sql");
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-//            StringBuilder stringBuilder = new StringBuilder();
             String line;
-            int i =1;
             while ((line = reader.readLine())!=null){
-                Log.i("test","Line "+i);
-//                stringBuilder.append(line);
                 db.execSQL(line);
-                i++;
             }
-//            String restaurantQuery = stringBuilder.toString();
-//            db.execSQL(restaurantQuery);
-
             inputStream.close();
+
+            //bundle table
+            inputStream = this.getAssets().open("Bundles_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //user table
+            inputStream = this.getAssets().open("User_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //manager table
+            inputStream = this.getAssets().open("Manager_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
