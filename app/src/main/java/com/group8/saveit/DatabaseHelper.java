@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,7 +21,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 15;
+    final static int DATABASE_VERSION = 18;
 
     //Restaurant table
     final static String RESTAURANT = "Restaurant_table";
@@ -255,8 +256,9 @@ public String checkPassword(String username,String password) {
                 @SuppressLint("Range") int bundleId = cursor.getInt(cursor.getColumnIndex(B_COL1));
                 @SuppressLint("Range") int price = cursor.getInt(cursor.getColumnIndex(B_COL2));
                 @SuppressLint("Range") String items = cursor.getString(cursor.getColumnIndex(B_COL3));
+                @SuppressLint("Range") String RID = cursor.getString(cursor.getColumnIndex(B_COL4));
 //                FoodBundle bundle = new FoodBundle(bundleId, price, items);
-                FoodBundle bundle = new FoodBundle(bundleId, items,price);
+                FoodBundle bundle = new FoodBundle(bundleId, items,price, RID);
                 bundles.add(bundle);
             } while (cursor.moveToNext());
         }
@@ -469,6 +471,13 @@ public String checkPassword(String username,String password) {
             }
         }
         return customer;
+    }
+
+    public Cursor getRIDByEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + M_COL5 + " FROM "+ MANAGER +" WHERE "+M_COL1+"=?",new String[]{email});
+
+        return cursor;
     }
 
 }

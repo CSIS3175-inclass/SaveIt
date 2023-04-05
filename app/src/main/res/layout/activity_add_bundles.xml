@@ -97,8 +97,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="334dp"
-        android:layout_height="176dp"
+        android:layout_width="344dp"
+        android:layout_height="247dp"
         android:layout_marginBottom="270dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -139,38 +139,6 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/lblBundle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="11dp"
-        android:layout_marginBottom="10dp"
-        android:text="@string/lblBundle"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/edTxtBundleName"
-        app:layout_constraintEnd_toStartOf="@+id/edTxtBundleName"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/edTxtBundleName"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="465dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:gravity="center"
-        android:hint="@string/hintBundleName"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textColorHint="#546E7A"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/lblBundle"
-        app:layout_constraintTop_toBottomOf="@+id/titleAddBundles"
-        tools:ignore="TouchTargetSizeCheck" />
-
-    <TextView
         android:id="@+id/addTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -185,10 +153,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="48dp"
         android:text="@string/txtTitle"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/edTxtBundleName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ManageFoodBundleActivity">
+
     <TextView
         android:id="@+id/titleManageBundles"
         android:layout_width="wrap_content"
@@ -55,12 +56,12 @@
         android:id="@+id/frameBottomMenu"
         android:layout_width="410dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="2dp"
         android:background="#d6d7d7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddBundles">
+        app:layout_constraintTop_toBottomOf="@+id/test">
 
 
         <ImageButton
@@ -92,29 +93,26 @@
 
     <Button
         android:id="@+id/btnAddBundles"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="133dp"
+        android:layout_height="78dp"
         android:layout_marginTop="417dp"
-        android:layout_marginEnd="46dp"
         android:layout_marginBottom="43dp"
         android:text="@string/btnAddBundles"
         app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnDeleteSelected"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnDeleteSelected"
-        android:layout_width="0dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="43dp"
-        android:text="@string/btnDeleteSelected"
+    <TextView
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="391dp"
+        android:layout_marginBottom="128dp"
+        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddBundles"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+        app:layout_constraintStart_toStartOf="@+id/btnAddBundles"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,14 +19,14 @@ public class HomeManagerActivity extends AppCompatActivity {
         manageFoodBundles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeManagerActivity.this, AddBundlesActivity.class));
+                startActivity(new Intent(HomeManagerActivity.this, ManageFoodBundleActivity.class));
             }
         });
 
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeManagerActivity.this, ManageFoodBundleActivity.class));
+                startActivity(new Intent(HomeManagerActivity.this, CurrentOrdersActivity.class));
             }
         });
 

@@ -3,6 +3,7 @@ package com.group8.saveit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -24,12 +25,15 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     String customerEmail; //keep track of customer's id throughout the activities to add new Order
+    String managerEmail;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         databaseHelper=new DatabaseHelper(this);
+        sharedPreferences = getSharedPreferences("MyPreferences",MODE_PRIVATE);
         loadDB(); //load database from assets/ sql files
 
         Button button = findViewById(R.id.button);
@@ -62,6 +66,8 @@ startActivity(new Intent(MainActivity.this,Registration.class));
             if(databaseHelper.checkPassword(username.getText().toString(),password.getText().toString())=="user")
             {
                 customerEmail=username.getText().toString(); // TODO: 4/4/2023 replace with customer email from login credential
+
+
                 //take to Restaurant search activity
                 Intent intent = new Intent(MainActivity.this,RestaurantSearch.class);
                 intent.putExtra("customerEmail",customerEmail);
@@ -69,6 +75,21 @@ startActivity(new Intent(MainActivity.this,Registration.class));
             }
            else if(databaseHelper.checkPassword(username.getText().toString(),password.getText().toString())=="manager")
                 {
+                    Cursor c =databaseHelper.getRIDByEmail(username.getText().toString());
+
+                    StringBuilder managerRID = new StringBuilder();
+                    if(c.getCount() >0)
+                    {
+                    while(c.moveToNext())
+                    {
+                        managerRID.append(c.getString(0));
+                    }
+                    }
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("managerRID", managerRID.toString());
+                    editor.apply();
+                    Log.d("MainActivity", "RID: " + managerRID);
+                    Log.d("MainActivity", "SharedPreference RID: " + sharedPreferences.getString("managerRID", ""));
                     startActivity(new Intent(MainActivity.this, HomeManagerActivity.class));
                 }else {
                 Toast.makeText(MainActivity.this,"incorrect password",Toast.LENGTH_LONG).show();

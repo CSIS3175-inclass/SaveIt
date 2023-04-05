@@ -31,7 +31,6 @@ public class AddBundlesActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         saveButton = findViewById(R.id.btnSave);
         edTxtPrice = findViewById(R.id.edTxtPrice);
-        edTxtBundleName = findViewById(R.id.edTxtBundleName);
 
         addButton.setOnClickListener(v -> {
             if (numClicks < 3) {
@@ -88,7 +87,6 @@ public class AddBundlesActivity extends AppCompatActivity {
                     items += input + ",";
                 }
                 String price = edTxtPrice.getText().toString();
-                String bName = edTxtBundleName.getText().toString();
                 isInserted = DatabaseHelper.addBundleData(Integer.parseInt(price),items);
 
                 if(isInserted)
