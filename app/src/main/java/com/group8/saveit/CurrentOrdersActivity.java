@@ -1,6 +1,9 @@
 package com.group8.saveit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +46,9 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 this.adapter=adapter;
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
+                UserMenuFragment userMenuFragment = new UserMenuFragment(customerOrders.get(0).getCustomerEmail());
+                replaceFragment(userMenuFragment);
             }
 
             generateReport.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +74,8 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                     }
                 }
             });
+
+
 
         }
 
@@ -98,6 +106,12 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 + ordered
                 ;
         return report;
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView7,fragment);
+        transaction.commit();
     }
 
 }

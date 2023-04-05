@@ -3,6 +3,9 @@ package com.group8.saveit;
 import static android.os.Build.VERSION_CODES.S;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -86,6 +89,8 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
                 adapter.notifyDataSetChanged();
             }
 
+            UserMenuFragment userMenuFragment = new UserMenuFragment(customerEmail);
+            replaceFragment(userMenuFragment);
         }
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
@@ -165,5 +170,12 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
 
     public double getTotal() {
         return total;
+    }
+    //navigationContainerView2
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView2,fragment);
+        transaction.commit();
     }
 }

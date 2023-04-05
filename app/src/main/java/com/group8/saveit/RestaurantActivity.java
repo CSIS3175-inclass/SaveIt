@@ -85,6 +85,9 @@ public class RestaurantActivity extends AppCompatActivity{
                     startActivity(restaurantSearchIntent);
                 }
             });
+
+            UserMenuFragment userMenuFragment = new UserMenuFragment(customerEmail);
+            replaceFragmentNav(userMenuFragment);
         }
 
 
@@ -96,12 +99,12 @@ public class RestaurantActivity extends AppCompatActivity{
         transaction.replace(R.id.BundlesContainerView,fragment);
         transaction.commit();
     }
+    private void replaceFragmentNav(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView,fragment);
+        transaction.commit();
+    }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        FoodBundleFragment foodBundleFragment=new FoodBundleFragment(databaseHelper,restaurantId);
-//        replaceFragment(foodBundleFragment);
-//    }
 
 }
