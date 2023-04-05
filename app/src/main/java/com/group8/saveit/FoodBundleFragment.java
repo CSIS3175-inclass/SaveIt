@@ -71,8 +71,12 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
     }
 
     private void loadData(int restaurantId){
+        //Only display available food bundles
         ArrayList<FoodBundle> restaurantFoodBundles = databaseHelper.getFoodBundleByRestaurant(restaurantId);
-        foodBundles=restaurantFoodBundles;
+        for(int i=0;i<restaurantFoodBundles.size();i++){
+            if(restaurantFoodBundles.get(i).isAvailable())
+                foodBundles.add(restaurantFoodBundles.get(i));
+        }
     }
 
     //updates totalValue Textview on every checkbox check

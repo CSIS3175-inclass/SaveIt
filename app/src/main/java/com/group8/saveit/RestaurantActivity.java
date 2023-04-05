@@ -39,10 +39,8 @@ public class RestaurantActivity extends AppCompatActivity{
 
             //update restaurant name
             Restaurant restaurant = databaseHelper.getRestaurantByID(restaurantId);
-
             if(restaurant!=null){
                 restaurantName.setText(restaurant.getName());
-
             }
 
             //list foodBundles

@@ -71,7 +71,7 @@ public class RestaurantSearchAdapter extends BaseAdapter {
                     ArrayList<FoodBundle> foodBundles = databaseHelper.getFoodBundleByRestaurant(restaurantId);
                     Log.i("test",restaurant.getName()+" has the following food bundles ");
                     for(int i=0;i<foodBundles.size();i++){
-                        Log.i("test","/t "+foodBundles.get(i).getBundleName());
+                        Log.i("test","/t "+foodBundles.get(i).getBundleName()+" available: "+foodBundles.get(i).isAvailable());
                     }
                     if(!foodBundles.isEmpty()){
                         //pass restaurantId and customer email to OrderSummary activity to create new Order
@@ -80,7 +80,7 @@ public class RestaurantSearchAdapter extends BaseAdapter {
                         ctx.startActivity(intent);
                     }
                     else{
-                        Toast.makeText(ctx, "This restaurant doesn't have any foodbundle at the moment", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ctx, "This restaurant doesn't have any food bundle available at the moment", Toast.LENGTH_LONG).show();
                     }
                 }
                 Toast.makeText(ctx, "There's an issue with this restaurant please select another one", Toast.LENGTH_LONG).show();
