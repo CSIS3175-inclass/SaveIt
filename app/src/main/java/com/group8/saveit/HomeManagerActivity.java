@@ -33,7 +33,7 @@ public class HomeManagerActivity extends AppCompatActivity {
 //                startActivity(new Intent(HomeManagerActivity.this, ManageFoodBundleActivity.class));
                     Intent ordersIntent = new Intent(HomeManagerActivity.this, CurrentOrdersActivity.class);
                     ordersIntent.putExtra("restaurantId",restaurantId);
-                    startActivity(intent);
+                    startActivity(ordersIntent);
                 }
             });
         }

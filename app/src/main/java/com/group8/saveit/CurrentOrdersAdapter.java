@@ -20,6 +20,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
     ArrayList<CustomerOrder> customerOrders;
     LayoutInflater layoutInflater;
     Context context;
+    String customerEmail;
 
     public CurrentOrdersAdapter(ArrayList<CustomerOrder> customerOrders, Context context) {
         this.customerOrders = customerOrders;
@@ -39,10 +40,10 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         CustomerOrder customerOrder = customerOrders.get(position);
         Log.i("test","Order number: "+customerOrder.getOrderId());
-        holder.customer.setText(Integer.toString(customerOrder.getCustomerId()));
+        holder.customer.setText(customerOrder.getCustomerEmail());
         holder.orderId.setText(Integer.toString(customerOrder.getOrderId()));
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        holder.date.setText(formatter.format(customerOrder.getOrderDate()));
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        holder.date.setText(customerOrder.getOrderDate());
         holder.deliveryOption.setText(customerOrder.getDeliveryOption());
         holder.deliveryAddress.setText(customerOrder.getAddress());
 

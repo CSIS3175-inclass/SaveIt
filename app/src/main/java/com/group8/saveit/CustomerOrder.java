@@ -89,4 +89,12 @@ public class CustomerOrder {
     public void setOrderedFoodBundles(ArrayList<FoodBundle> orderedFoodBundles) {
         this.orderedFoodBundles = orderedFoodBundles;
     }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
 }
