@@ -3,6 +3,9 @@ package com.group8.saveit;
 import static android.os.Build.VERSION_CODES.S;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,7 +55,6 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
 
         totalPrice = findViewById(R.id.totalPrice);
         completeOrder=findViewById(R.id.confirmOrderBtn);
-        editStreet = findViewById(R.id.editStreet);
         editStreetName = findViewById(R.id.editStreet2);
         editCity = findViewById(R.id.editCity);
         editPostalCode = findViewById(R.id.editPostalCode);
@@ -69,21 +71,26 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
             customerEmail= intent.getStringExtra("customerEmail");
             restaurant=databaseHelper.getRestaurantByID(intent.getIntExtra("restaurantId",0));
 
-            Customer customer = databaseHelper.getCustomerByEmail(customerEmail);
-            editStreetName.setText(customer.getStreetName());
-            editCity.setText(customer.getCity());
-            editPostalCode.setText(customer.getPostalCode());
+            if(customerEmail!=null){
+                Customer customer = databaseHelper.getCustomerByEmail(customerEmail);
+                editStreetName.setText(customer.getStreetName());
+                editCity.setText(customer.getCity());
+                editPostalCode.setText(customer.getPostalCode());
 
-            //populate recyclerview
-            recyclerView=findViewById(R.id.orderRecyclerView);
+                //populate recyclerview
+                recyclerView=findViewById(R.id.orderRecyclerView);
 //            recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setHasFixedSize(true);
-            OrderSummaryAdapter adapter=new OrderSummaryAdapter(this,foodBundles,totalPrice);
-            adapter.setOnDataChangedListener(this);
-            recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setHasFixedSize(true);
+                OrderSummaryAdapter adapter=new OrderSummaryAdapter(this,foodBundles,totalPrice);
+                adapter.setOnDataChangedListener(this);
+                recyclerView.setAdapter(adapter);
 
-            adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+            }
+
+            UserMenuFragment userMenuFragment = new UserMenuFragment(customerEmail);
+            replaceFragment(userMenuFragment);
         }
 
         completeOrder.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +152,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
                         orderConfirmationIntent.putExtra("total",total);
                         orderConfirmationIntent.putExtra("delivery",deliveryOptionTxt);
                         orderConfirmationIntent.putExtra("restaurantId",restaurant.getRid());
+                        orderConfirmationIntent.putExtra("customerEmail",customerEmail);
                         startActivity(orderConfirmationIntent);
                     }
                 }
@@ -162,5 +170,12 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
 
     public double getTotal() {
         return total;
+    }
+    //navigationContainerView2
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView2,fragment);
+        transaction.commit();
     }
 }

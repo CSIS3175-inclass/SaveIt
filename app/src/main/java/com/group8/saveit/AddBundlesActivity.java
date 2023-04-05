@@ -1,8 +1,12 @@
 package com.group8.saveit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +25,8 @@ public class AddBundlesActivity extends AppCompatActivity {
     Button saveButton;
     EditText edTxtPrice;
     EditText edTxtBundleName;
+    SharedPreferences sharedPreferences;
+    String managerRID="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,9 @@ public class AddBundlesActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         saveButton = findViewById(R.id.btnSave);
         edTxtPrice = findViewById(R.id.edTxtPrice);
-        edTxtBundleName = findViewById(R.id.edTxtBundleName);
+
+        sharedPreferences = getSharedPreferences("MyPreferences",MODE_PRIVATE);
+        managerRID = sharedPreferences.getString("RID","");
 
         addButton.setOnClickListener(v -> {
             if (numClicks < 3) {
@@ -87,9 +95,10 @@ public class AddBundlesActivity extends AppCompatActivity {
                     String input = editText.getText().toString();
                     items += input + ",";
                 }
+                sharedPreferences = getSharedPreferences("MyPreferences",MODE_PRIVATE);
+                managerRID = sharedPreferences.getString("managerRID","");
                 String price = edTxtPrice.getText().toString();
-                String bName = edTxtBundleName.getText().toString();
-                isInserted = DatabaseHelper.addBundleData(Integer.parseInt(price),items);
+                isInserted = DatabaseHelper.addBundleData(Integer.parseInt(price),items, managerRID);
 
                 if(isInserted)
                 {
@@ -104,6 +113,14 @@ public class AddBundlesActivity extends AppCompatActivity {
             }
         });
 
+        managerMenuFragment managerMenuFragment = new managerMenuFragment(Integer.parseInt(managerRID));
+        replaceFragment(managerMenuFragment);
 
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainerView,fragment);
+        transaction.commit();
     }
 }

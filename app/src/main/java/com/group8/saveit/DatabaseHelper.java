@@ -1,26 +1,39 @@
 package com.group8.saveit;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 15;
+    final static int DATABASE_VERSION = 21;
+
+    final AssetManager assetManager = SaveItApp.getAppContext().getAssets(); //to get sql files from assets folder, and load dataset
 
     //Restaurant table
     final static String RESTAURANT = "Restaurant_table";
@@ -146,6 +159,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 "FOREIGN KEY("+OB_COL1+") REFERENCES "+ORDER+"("+O_COL1+"),"+
                 "FOREIGN KEY("+OB_COL2+") REFERENCES "+BUNDLES+"("+B_COL1+"))";
         sqLiteDatabase.execSQL(query);
+
+        if(assetManager!=null){
+            loadDB(sqLiteDatabase);
+        }
     }
 
     @Override
@@ -158,6 +175,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER_BUNDLE);
         onCreate(sqLiteDatabase);
+
 
     }
 
@@ -203,6 +221,19 @@ public boolean addData(String name, String email, String password, String phone,
             return false;
 
     }
+
+    public int getRestaurantIdByManager(String email){
+        int restaurantId = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MANAGER+" WHERE "+M_COL1+"=?",new String[]{email});
+        if(cursor.moveToFirst()){
+            int restaurantIdIndex=cursor.getColumnIndex(M_COL5);
+            if(restaurantIdIndex>-1){
+                restaurantId=cursor.getInt(restaurantIdIndex);
+            }
+        }
+        return  restaurantId;
+    }
 public Boolean checkUsername(String username){
         SQLiteDatabase sqlDB=this.getReadableDatabase();
             Cursor c=sqlDB.rawQuery("Select * from User_table where Email=?",new String[] {username});
@@ -228,11 +259,13 @@ public String checkPassword(String username,String password) {
     }
 
 
-    public boolean addBundleData(Integer price,String items)
+    public boolean addBundleData(Integer price,String items, String RID)
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(B_COL2, price);
+        values.put(B_COL4, RID);
+        values.put(B_COL5, 1);
         String[] itemArray = items.split(" ");
         // Join the array of items into a comma-separated string
         String itemString = TextUtils.join(",", itemArray);
@@ -255,8 +288,9 @@ public String checkPassword(String username,String password) {
                 @SuppressLint("Range") int bundleId = cursor.getInt(cursor.getColumnIndex(B_COL1));
                 @SuppressLint("Range") int price = cursor.getInt(cursor.getColumnIndex(B_COL2));
                 @SuppressLint("Range") String items = cursor.getString(cursor.getColumnIndex(B_COL3));
+                @SuppressLint("Range") String RID = cursor.getString(cursor.getColumnIndex(B_COL4));
 //                FoodBundle bundle = new FoodBundle(bundleId, price, items);
-                FoodBundle bundle = new FoodBundle(bundleId, items,price);
+                FoodBundle bundle = new FoodBundle(bundleId, items,price, RID);
                 bundles.add(bundle);
             } while (cursor.moveToNext());
         }
@@ -277,12 +311,13 @@ public String checkPassword(String username,String password) {
         Cursor cursor = db.rawQuery("SELECT * FROM "+BUNDLES+" WHERE "+B_COL1+"=?",new String[]{Integer.toString(foodBundleId)});
 
         FoodBundle foodBundle = null;
-        if(cursor.moveToFirst() && cursor.getColumnIndex(B_COL3)>-1 && cursor.getColumnIndex(B_COL1)>-1 && cursor.getColumnIndex(B_COL2)>-1){
+        if(cursor.moveToFirst() && cursor.getColumnIndex(B_COL3)>-1 && cursor.getColumnIndex(B_COL1)>-1 && cursor.getColumnIndex(B_COL2)>-1 && cursor.getColumnIndex(B_COL5)>-1){
             String items = cursor.getString(cursor.getColumnIndex(B_COL3));
             String[] itemList = items.split(",");
             foodBundle = new FoodBundle(cursor.getInt(cursor.getColumnIndex(B_COL1)),
                     cursor.getDouble(cursor.getColumnIndex(B_COL2)),
                     itemList);
+            foodBundle.setAvailable(cursor.getInt(cursor.getColumnIndex(B_COL5))==1?true:false);
         }
         cursor.close();
         return  foodBundle;
@@ -311,10 +346,11 @@ public String checkPassword(String username,String password) {
     }
 
     //add New Customer order
-    public long addCustomerOrder(Date date,boolean isCompleted, int restaurantId, String customerEmail, int deliveryOption,String address){
+    public long addCustomerOrder(String date,boolean isCompleted, int restaurantId, String customerEmail, int deliveryOption,String address){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(O_COL2, String.valueOf(date));
+//        contentValues.put(O_COL2, String.valueOf(date));
+        contentValues.put(O_COL2, date);
         contentValues.put(O_COL3, isCompleted);
         contentValues.put(O_COL4, restaurantId);
         contentValues.put(O_COL5, customerEmail);
@@ -324,6 +360,65 @@ public String checkPassword(String username,String password) {
 //        returns the added Order's ID if inserted successfully, else return negative number
         return db.insert(ORDER,null,contentValues);
 
+    }
+
+    //get order by orderId
+    public CustomerOrder getOrderById(int oid){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ORDER+" WHERE "+O_COL1+"=?",new String[]{Integer.toString(oid)});
+        CustomerOrder customerOrder = null;
+        if(cursor.moveToFirst()){
+            int oidIndex = cursor.getColumnIndex(O_COL1);
+            int dateIndex = cursor.getColumnIndex(O_COL2);
+            int statusIndex = cursor.getColumnIndex(O_COL3);
+            int restaurantIndex = cursor.getColumnIndex(O_COL4);
+            int emailIndex = cursor.getColumnIndex(O_COL5);
+            int deliveryIndex = cursor.getColumnIndex(O_COL6);
+            int addressIndex = cursor.getColumnIndex(O_COL7);
+            if(oidIndex>-1&&dateIndex>-1&&statusIndex>-1&&restaurantIndex>-1&&deliveryIndex>-1&&addressIndex>-1){
+                String deliveryOption = cursor.getInt(deliveryIndex) ==1 ? "delivery" : "pick-up";
+                String dateStr = cursor.getString(dateIndex);
+                boolean isCompleted = cursor.getInt(statusIndex) == 1 ? true : false;
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+                customerOrder = new CustomerOrder(cursor.getString(emailIndex),
+                        deliveryOption,
+                        cursor.getString(addressIndex));
+                customerOrder.setOrderId(cursor.getInt(oidIndex));
+                customerOrder.setOrderDate(dateStr);
+//                try {
+//                    customerOrder.setOrderDate(format.parse(dateStr));
+//                }catch (ParseException parseException){
+//                    Log.i("test",parseException.toString());
+//                }
+                customerOrder.setAddress(cursor.getString(addressIndex));
+                customerOrder.setCompleted(isCompleted);
+                customerOrder.setOrderedFoodBundles(getFoodBundleByOrderId(customerOrder.getOrderId()));
+            }
+        }
+        return customerOrder;
+    }
+
+    //get customer order by restaurantId
+    @SuppressLint("Range")
+    public ArrayList<CustomerOrder> getOrdersByRid(int rid){
+        SQLiteDatabase db= this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ORDER+" WHERE "+O_COL4+"=?",new String[]{Integer.toString(rid)});
+        ArrayList<CustomerOrder> customerOrders = new ArrayList<>();
+
+        if(cursor.moveToFirst()){
+            do {
+                //make sure the index use is valid and the returned food bundle is not null
+                if(cursor.getColumnIndex(O_COL1)>-1){
+                    CustomerOrder newOrder = getOrderById(cursor.getInt(cursor.getColumnIndex(O_COL1)));
+                    if (newOrder!=null)
+                        customerOrders.add(newOrder);
+                }
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return customerOrders;
     }
 
     //update customer order status
@@ -456,13 +551,14 @@ public String checkPassword(String username,String password) {
             int emailIndex = cursor.getColumnIndex(U_COL1);
             int nameIndex = cursor.getColumnIndex(U_COL2);
             int phoneIndex = cursor.getColumnIndex(U_COL4);
+            int pwdIndex=cursor.getColumnIndex(U_COL3);
             int streetNameIndex = cursor.getColumnIndex(U_COL6);
             int cityIndex = cursor.getColumnIndex(U_COL7);
             int postIndex = cursor.getColumnIndex(U_COL8);
-            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
-                customer = new Customer(cursor.getString(emailIndex),
+            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&pwdIndex>-1&&cityIndex>-1&&postIndex>-1){
+                customer = new Customer(cursor.getString(emailIndex),cursor.getString(pwdIndex),
                         cursor.getString(nameIndex),
-                        cursor.getInt(phoneIndex),
+                        cursor.getString(phoneIndex),
                         cursor.getString(streetNameIndex),
                         cursor.getString(cityIndex),
                         cursor.getString(postIndex));
@@ -470,5 +566,110 @@ public String checkPassword(String username,String password) {
         }
         return customer;
     }
+    public void loadDB(SQLiteDatabase db){
+        try {
+
+            //read from file and load tables
+            //restaurant table
+
+            InputStream inputStream = assetManager.open("Restaurant_table.sql");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+
+            while ((line = reader.readLine())!=null){
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //bundle table
+            inputStream = assetManager.open("Bundles_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //user table
+            inputStream = assetManager.open("User_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //manager table
+            inputStream = assetManager.open("Manager_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public ArrayList<Restaurant> getAllRestaurantsByCity(String cityName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+RESTAURANT +" WHERE " + R_COL7 + "= '" + cityName + "'",null);
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        if(cursor.moveToFirst()){
+            do{
+                int ridIndex = cursor.getColumnIndex(R_COL1);
+                int nameIndex = cursor.getColumnIndex(R_COL2);
+                int startIndex = cursor.getColumnIndex(R_COL3);
+                int endIndex = cursor.getColumnIndex(R_COL4);
+                int streetNameIndex = cursor.getColumnIndex(R_COL6);
+                int cityIndex = cursor.getColumnIndex(R_COL7);
+                int postIndex = cursor.getColumnIndex(R_COL8);
+
+                //make sure all indexes are valid
+                if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+                    restaurants.add(new Restaurant(cursor.getInt(ridIndex),
+                            cursor.getString(nameIndex),
+                            cursor.getString(startIndex),
+                            cursor.getString(endIndex),
+                            cursor.getString(streetNameIndex),
+                            cursor.getString(cityIndex),
+                            cursor.getString(postIndex)));
+                }
+            }while (cursor.moveToNext());
+        }
+        return restaurants;
+    }
+
+    public Cursor getRIDByEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + M_COL5 + " FROM "+ MANAGER +" WHERE "+M_COL1+"=?",new String[]{email});
+
+        return cursor;
+    }
+
+    public boolean updateCustomer(Customer customer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(U_COL2, customer.getName());
+        values.put(U_COL3, customer.getPassword());
+        values.put(U_COL4, customer.getPhone());
+        values.put(U_COL6, customer.getStreetName());
+        values.put(U_COL7, customer.getCity());
+        values.put(U_COL8, customer.getPostalCode());
+
+        int rowsAffected = db.update(USER, values, U_COL1 + " = ?",
+                new String[] { customer.getEmail() });
+
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+
 
 }

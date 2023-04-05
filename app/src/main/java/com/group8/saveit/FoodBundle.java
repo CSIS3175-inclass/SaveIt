@@ -14,6 +14,15 @@ public class FoodBundle implements Parcelable {
     private String[] items;
     private boolean checked=false;
     private boolean isAvailable = true; //updated to false when FoodBundle has been Ordered
+    private String RID;
+
+    public FoodBundle(long id,String bundleName, double price, String RID) {
+        this.id=id;
+        this.bundleName = bundleName;
+        this.price = price;
+        this.RID = RID;
+    }
+
 
     public FoodBundle(long id,String bundleName, int bundleImage, double price) {
         this.id=id;
@@ -34,6 +43,7 @@ public class FoodBundle implements Parcelable {
         this.price = price;
         this.items = items;
     }
+
 
     protected FoodBundle(Parcel in) {
         id = in.readLong();
@@ -104,6 +114,14 @@ public class FoodBundle implements Parcelable {
         this.id = id;
     }
 
+    public String getRID() {
+        return RID;
+    }
+
+    public void setRID(String RID) {
+        this.RID = RID;
+    }
+
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -127,5 +145,6 @@ public class FoodBundle implements Parcelable {
         dest.writeDouble(price);
         dest.writeStringArray(items);
         dest.writeByte((byte) (checked ? 1 : 0));
+        dest.writeString(RID);
     }
 }

@@ -8,13 +8,14 @@
 
     <TextView
         android:id="@+id/restaurantName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="327dp"
+        android:layout_height="44dp"
         android:layout_marginTop="5dp"
         android:text="@string/txtRestaurantName"
         android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.809"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,27 +25,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="11dp"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/order"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurantName"
-        tools:layout="@layout/fragment_food_bundle" />
-
-    <!--    Navigation bar -->
-    <FrameLayout
-        android:id="@+id/frameLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="1dp"
-        android:background="#2196F3"
+        android:layout_marginBottom="132dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order">
+        app:layout_constraintTop_toBottomOf="@+id/backSearchBtn"
+        tools:layout="@layout/fragment_food_bundle" />
 
-    </FrameLayout>
+    <!--    Navigation bar -->
 
     <Button
         android:id="@+id/order"
@@ -60,20 +48,42 @@
         android:id="@+id/totalValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="33dp"
         android:text="@string/txtDefaultTotal"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintStart_toStartOf="@+id/frameLayout2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BundlesContainerView" />
 
     <TextView
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="22dp"
         android:text="@string/txtTotal"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/totalValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/totalValue" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationContainerView"
+        android:name="com.group8.saveit.UserMenuFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="149dp"
+        android:layout_marginEnd="149dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/order"
+        app:layout_constraintHorizontal_bias="0.362"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_user_menu" />
+
+    <ImageButton
+        android:id="@+id/backSearchBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_new_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

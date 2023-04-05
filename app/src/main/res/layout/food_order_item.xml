@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#D5D6D6"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="-32dp">
 
@@ -11,45 +12,46 @@
         android:id="@+id/bundleName2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="168dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="36dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/bundlePrice2"
-        app:layout_constraintStart_toEndOf="@+id/deleteBtn"
+        app:layout_constraintBottom_toTopOf="@+id/itemsList"
+        app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/bundlePrice2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="33dp"
         android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/deleteBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bundleName2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/deleteBtn"
+        app:layout_constraintTop_toTopOf="@+id/deleteBtn" />
 
     <ListView
         android:id="@+id/itemsList"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:background="#FF5722"
+        android:layout_height="100dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginEnd="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/deleteBtn"
-        android:layout_width="0dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="54dp"
-        android:layout_marginBottom="37dp"
-        app:layout_constraintBottom_toTopOf="@+id/itemsList"
-        app:layout_constraintEnd_toStartOf="@+id/bundleName2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete" />
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="125dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/bundleName2"
+        app:layout_constraintEnd_toStartOf="@+id/bundlePrice2"
+        app:layout_constraintStart_toEndOf="@+id/bundleName2"
+        app:layout_constraintTop_toTopOf="@+id/bundleName2"
+        app:srcCompat="@drawable/delete_img" />
 </androidx.constraintlayout.widget.ConstraintLayout>

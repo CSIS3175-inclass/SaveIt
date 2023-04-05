@@ -1,49 +1,117 @@
 package com.group8.saveit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class CurrentOrdersActivity extends AppCompatActivity {
     ArrayList<CustomerOrder> customerOrders = new ArrayList<>();
     RecyclerView recyclerView;
-
+    DatabaseHelper databaseHelper;
+    int restaurantId;
+    Button generateReport;
+    CurrentOrdersAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_orders);
-        recyclerView = findViewById(R.id.currentOrderRecycler);
-        loadData();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setHasFixedSize(true);
-        CurrentOrdersAdapter adapter = new CurrentOrdersAdapter(customerOrders,this);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        Intent intent = getIntent();
+        generateReport = findViewById(R.id.generateReportBtn);
+        if(intent!=null){
+            restaurantId = intent.getIntExtra("restaurantId",restaurantId);
+
+            databaseHelper = new DatabaseHelper(this);
+            recyclerView = findViewById(R.id.currentOrderRecycler);
+
+            loadData();
+
+            if(!customerOrders.isEmpty()){
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setHasFixedSize(true);
+                CurrentOrdersAdapter adapter = new CurrentOrdersAdapter(customerOrders,this);
+                this.adapter=adapter;
+                recyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+                managerMenuFragment managerMenuFragment = new managerMenuFragment(restaurantId);
+                replaceFragment(managerMenuFragment);
+            }
+
+            generateReport.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        adapter.notifyDataSetChanged();
+                        //generate report (overwrite)
+                        FileOutputStream fout = openFileOutput("orderreport.txt",MODE_PRIVATE);
+                        String report = "\n Report from "+ Calendar.getInstance().getTime();
+
+                        for(int i =0; i< customerOrders.size();i++){
+                            report+=getReport(customerOrders.get(i));
+                        }
+
+                        fout.write(report.getBytes(StandardCharsets.UTF_8));
+                        fout.close();
+
+
+                        Toast.makeText(CurrentOrdersActivity.this, "Report has been generated", Toast.LENGTH_SHORT).show();
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+            });
+
+
+
+        }
+
     }
 
     public void loadData(){
-        CustomerOrder customerOrder1 = new CustomerOrder(1,1,"pick-up","1234 Greet St");
-        CustomerOrder customerOrder2 = new CustomerOrder(2,2,"delivery","5678 Miaou ave");
-
-        FoodBundle foodBundleOne = new FoodBundle(1,"FoodBundleOne",R.drawable.imag1,10.99);
-        FoodBundle foodBundleTwo = new FoodBundle(2,"FoodBundleTwo",R.drawable.image2,9.99);
-        String[] items ={"item1","item2"};
-        foodBundleOne.setItems(items);
-        foodBundleTwo.setItems(items);
-
-        ArrayList<FoodBundle> foodBundles = new ArrayList<>();
-        foodBundles.add(foodBundleOne);
-        foodBundles.add(foodBundleTwo);
-
-        customerOrder1.setOrderedFoodBundles(foodBundles);
-        customerOrder2.setOrderedFoodBundles(foodBundles);
-
-        customerOrders.add(customerOrder1);
-        customerOrders.add(customerOrder2);
+        customerOrders = databaseHelper.getOrdersByRid(restaurantId);
     }
+    public String getReport(CustomerOrder customerOrder){
+        String ordered = "";
+        ArrayList<FoodBundle> foodBundles= customerOrder.getOrderedFoodBundles();
+        for(int i=0;i<foodBundles.size();i++){
+            FoodBundle foodBundle = foodBundles.get(i);
+            ordered += "\n\t\t Food Bundle "+ foodBundle.getId();
+            String[] items = foodBundle.getItems();
+            for(int j = 0; j< items.length;j++){
+                ordered += "\n\t\t\t item "+items[j];
+            }
+        }
+
+        String report = "\n---"+
+                "\nOrderId: "+customerOrder.getOrderId()
+                + "\n\tFrom Customer: " + customerOrder.getCustomerEmail()
+                + "\n\t"+customerOrder.getDeliveryOption()+" at: " + customerOrder.getDeliveryOption()
+                + "\n\tOn : " + customerOrder.getOrderDate()
+                + "\n\tCompleted : " + customerOrder.isCompleted()
+                + "\n\tOrdered FoodBundles : " + customerOrder.getCustomerEmail()
+                + ordered
+                ;
+        return report;
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView7,fragment);
+        transaction.commit();
+    }
+
 }

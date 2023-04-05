@@ -3,20 +3,30 @@ package com.group8.saveit;
 public class Customer {
     private String email;
     private String name;
-    private int phone;
+    private String phone;
     private String streetName;
     private String city;
+    private String password;
     private String postalCode;
 
-    public Customer(String email, String name, int phone, String streetName, String city, String postalCode) {
+
+
+    public Customer(String email, String password, String name, String phone, String streetName, String city, String postalCode) {
         this.email = email;
         this.name = name;
         this.phone = phone;
         this.streetName = streetName;
         this.city = city;
+        this.password=password;
         this.postalCode = postalCode;
     }
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getEmail() {
         return email;
     }
@@ -33,11 +43,11 @@ public class Customer {
         this.name = name;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

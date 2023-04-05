@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#D5D6D6"
+    tools:context=".UserMenuFragment">
+
+    <ImageButton
+        android:id="@+id/menu_home_icon"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/home" />
+
+    <ImageButton
+        android:id="@+id/menu_history_icon"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="104dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/history" />
+
+    <ImageButton
+        android:id="@+id/menu_favorite_icon"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="208dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/favorite" />
+
+    <ImageButton
+        android:id="@+id/menu_profile_icon"
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="312dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/profile" />
+</FrameLayout>

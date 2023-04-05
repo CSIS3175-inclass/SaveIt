@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class RestaurantActivity extends AppCompatActivity{
     ArrayList<Integer> selectedFoodBundleId = new ArrayList<Integer>();
     String customerEmail;
     TextView restaurantName;
+    ImageButton backtoSearch;
+    int restaurantId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public class RestaurantActivity extends AppCompatActivity{
             //get restaurantId from RestaurantSearch activity or OrderConfirmation activity
             restaurantName=findViewById(R.id.restaurantName);
             int restaurantId = intent.getIntExtra("restaurantId",0);
+            this.restaurantId = restaurantId;
             customerEmail = intent.getStringExtra("customerEmail");
 
             //update restaurant name
@@ -71,6 +75,19 @@ public class RestaurantActivity extends AppCompatActivity{
                     startActivity(intent);
                 }
             });
+
+            backtoSearch=findViewById(R.id.backSearchBtn);
+            backtoSearch.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent restaurantSearchIntent = new Intent(RestaurantActivity.this,RestaurantSearch.class);
+                    restaurantSearchIntent.putExtra("customerEmail",customerEmail);
+                    startActivity(restaurantSearchIntent);
+                }
+            });
+
+            UserMenuFragment userMenuFragment = new UserMenuFragment(customerEmail);
+            replaceFragmentNav(userMenuFragment);
         }
 
 
@@ -82,5 +99,12 @@ public class RestaurantActivity extends AppCompatActivity{
         transaction.replace(R.id.BundlesContainerView,fragment);
         transaction.commit();
     }
+    private void replaceFragmentNav(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView,fragment);
+        transaction.commit();
+    }
+
 
 }

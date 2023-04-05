@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userEdit">
+
+    <Button
+        android:id="@+id/btnLogoutM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/btnLogout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edTxtEndTime" />
+
+    <EditText
+        android:id="@+id/edTxtPasswordM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="32dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColorHint="#757575"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/edTxtStartTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtPasswordLbl"
+        app:layout_constraintTop_toBottomOf="@+id/edTxtEmailM" />
+
+    <EditText
+        android:id="@+id/edTxtNameM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/name"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/edTxtPhoneNumM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtNamelbl"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtPasswordLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="57dp"
+        android:text="@string/labelPassword"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/edTxtPasswordM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEmailLbl" />
+
+    <EditText
+        android:id="@+id/edTxtStartTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/edTxtStartTime"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/edTxtEndTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtStartTimeLbl"
+        app:layout_constraintTop_toBottomOf="@+id/edTxtPasswordM"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtNamelbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="65dp"
+        android:text="@string/nameLabel"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edTxtPhoneNumM"
+        app:layout_constraintEnd_toStartOf="@+id/edTxtNameM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtPhoneNumLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="89dp"
+        android:text="@string/phoneLabel"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/edTxtPhoneNumM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNamelbl" />
+
+    <EditText
+        android:id="@+id/edTxtEndTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="81dp"
+        android:layout_marginBottom="136dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/edTxtEndTime"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogoutM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtEndTimeLbl"
+        app:layout_constraintTop_toBottomOf="@+id/edTxtStartTime"
+        tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+    <EditText
+        android:id="@+id/edTxtEmailM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="13dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/emailInput"
+        app:layout_constraintBottom_toTopOf="@+id/edTxtPasswordM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtEmailLbl"
+        app:layout_constraintTop_toBottomOf="@+id/edTxtPhoneNumM"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtEmailLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="93dp"
+        android:text="@string/lemail"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/edTxtEmailM"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPhoneNumLbl" />
+
+    <EditText
+        android:id="@+id/edTxtPhoneNumM"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="21dp"
+        android:ems="10"
+        android:hint="@string/phone"
+        android:inputType="number"
+        android:textColorHint="#757575"
+        app:layout_constraintBottom_toTopOf="@+id/edTxtEmailM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtPhoneNumLbl"
+        app:layout_constraintTop_toBottomOf="@+id/edTxtNameM"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/txtEndTimeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="62dp"
+        android:text="@string/txtEndTIme"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/edTxtEndTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtStartTimeLbl" />
+
+    <TextView
+        android:id="@+id/txtStartTimeLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="56dp"
+        android:text="@string/txtStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/edTxtStartTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPasswordLbl" />
+
+    <Button
+        android:id="@+id/btnEditM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:text="@string/btnEdit"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogoutM"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

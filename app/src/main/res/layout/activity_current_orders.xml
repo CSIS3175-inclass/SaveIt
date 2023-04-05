@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".CurrentOrdersActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationContainerView7"
+        android:name="com.group8.saveit.UserMenuFragment"
+        android:layout_width="405dp"
+        android:layout_height="44dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/fragment_manager_menu" />
+
     <TextView
         android:id="@+id/currentOrders"
         android:layout_width="wrap_content"
@@ -17,18 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout3"
-        android:layout_width="0dp"
-        android:layout_height="67dp"
-        android:background="#2196F3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/generateReportBtn">
-
-    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/currentOrderRecycler"
