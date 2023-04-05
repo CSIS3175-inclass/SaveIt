@@ -8,6 +8,7 @@
     tools:context=".managerMenuFragment">
 
     <ImageButton
+        android:id="@+id/home_icon_2"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:contentDescription="@string/txtImage"
@@ -16,6 +17,7 @@
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ImageButton
+        android:id="@+id/history_icon_2"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -24,6 +26,7 @@
         android:src="@drawable/history_img" />
 
     <ImageButton
+        android:id="@+id/profile_icon_2"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_gravity="end"

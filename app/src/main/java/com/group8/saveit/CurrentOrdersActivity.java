@@ -47,8 +47,8 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
-                UserMenuFragment userMenuFragment = new UserMenuFragment(customerOrders.get(0).getCustomerEmail());
-                replaceFragment(userMenuFragment);
+                managerMenuFragment managerMenuFragment = new managerMenuFragment(restaurantId);
+                replaceFragment(managerMenuFragment);
             }
 
             generateReport.setOnClickListener(new View.OnClickListener() {

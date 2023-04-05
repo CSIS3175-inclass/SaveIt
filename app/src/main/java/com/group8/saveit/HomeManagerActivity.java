@@ -1,6 +1,9 @@
 package com.group8.saveit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,8 +39,16 @@ public class HomeManagerActivity extends AppCompatActivity {
                     startActivity(ordersIntent);
                 }
             });
+            managerMenuFragment managerMenuFragment = new managerMenuFragment(restaurantId);
+            replaceFragment(managerMenuFragment);
         }
 
 
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragmentContainerView2,fragment);
+        transaction.commit();
     }
 }
