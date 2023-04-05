@@ -1,5 +1,7 @@
 package com.group8.saveit;
 
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +23,16 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
     private ArrayList<FoodBundle> foodBundles = new ArrayList<>();
     private RecyclerView recyclerView;
     private double total = 0.0;
+    private DatabaseHelper databaseHelper;
+    private int restaurantId;
 
     public FoodBundleFragment() {
+    }
+    public FoodBundleFragment(DatabaseHelper databaseHelper, int restaurantId) {
+        this.databaseHelper=databaseHelper;
+        this.restaurantId=restaurantId;
+        loadData(restaurantId);
+
     }
 
     public double getTotal() {
@@ -48,7 +59,6 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        loadData();
         recyclerView = view.findViewById(R.id.foodb_recycler);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager
@@ -60,14 +70,13 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
 
     }
 
-    private void loadData(){
-        FoodBundle foodBundleOne = new FoodBundle(1,"FoodBundleOne",R.drawable.imag1,10.99);
-        FoodBundle foodBundleTwo = new FoodBundle(2,"FoodBundleTwo",R.drawable.image2,9.99);
-        String[] items ={"item1","item2"};
-        foodBundleOne.setItems(items);
-        foodBundleTwo.setItems(items);
-        foodBundles.add(foodBundleOne);
-        foodBundles.add(foodBundleTwo);
+    private void loadData(int restaurantId){
+        //Only display available food bundles
+        ArrayList<FoodBundle> restaurantFoodBundles = databaseHelper.getFoodBundleByRestaurant(restaurantId);
+        for(int i=0;i<restaurantFoodBundles.size();i++){
+            if(restaurantFoodBundles.get(i).isAvailable())
+                foodBundles.add(restaurantFoodBundles.get(i));
+        }
     }
 
     //updates totalValue Textview on every checkbox check

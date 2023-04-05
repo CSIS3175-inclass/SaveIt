@@ -9,11 +9,11 @@ import androidx.annotation.NonNull;
 public class FoodBundle implements Parcelable {
     private long id;
     private String bundleName;
-    private int bundleImage;
+    private int bundleImage=R.drawable.imag1;
     private double price;
     private String[] items;
-
     private boolean checked=false;
+    private boolean isAvailable = true; //updated to false when FoodBundle has been Ordered
 
     public FoodBundle(long id,String bundleName, int bundleImage, double price) {
         this.id=id;
@@ -26,6 +26,13 @@ public class FoodBundle implements Parcelable {
         this.id = id;
         this.bundleName = bundleName;
         this.price = price;
+    }
+
+    public FoodBundle(long id, double price, String[] items) {
+        this.id = id;
+        bundleName = "Food bundle N# "+id;
+        this.price = price;
+        this.items = items;
     }
 
     protected FoodBundle(Parcel in) {
@@ -96,6 +103,16 @@ public class FoodBundle implements Parcelable {
     public void setId(long id) {
         this.id = id;
     }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(boolean available) {
+        isAvailable = available;
+    }
+
+    //Methods for Parcelable implementation
 
     @Override
     public int describeContents() {

@@ -1,0 +1,10 @@
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('sleestut0@shareasale.com', 'Sidonnie LeEstut', 'W4B0hhHED', '3682931365', '83065', 'Superior', 'Surrey', '4608');
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('ecoulson1@state.gov', 'Elizabet Coulson', '7R4RK0Xn3', '4845657418', '891', 'Melrose', 'Coquitlam', '2975-083');
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('gmarkham2@nih.gov', 'Garland Markham', '0dojy5I', '4434396816', '3', 'Dunning', 'Surrey', '11910');
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('egendricke3@umn.edu', 'Erma Gendricke', 'Y3gGWgkYk', '6163350613', '646', 'Basil', 'Burnaby', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('espeke4@friendfeed.com', 'Early Speke', 'P0Nz8e', '4915167563', '93442', 'Kensington', 'New Westminster', '4323');
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('lpilpovic5@jiathis.com', 'Lyndsey Pilpovic', '59IFap', '1027693465', '648', 'Dexter', 'Coquitlam', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('ginsley6@live.com', 'Gisela Insley', '3iuAX3dLE', '8468137553', '96', 'Eggendart', 'Surrey', '4713');
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('alabro7@marketwatch.com', 'Annadiana Labro', 'svXJMDm5r', '6715173942', '979', 'Manley', 'Burnaby', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('anannoni8@engadget.com', 'Alayne Nannoni', 'KJHAk9USN1w', '9165618702', '27333', 'Service', 'New Westminster', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street_Num, Street, City, Postal_Code) values ('awadge9@kickstarter.com', 'Aeriell Wadge', 'hLZd3FzCd', '6906484579', '032', 'Merrick', 'Burnaby', null);

@@ -9,6 +9,7 @@ public class CustomerOrder {
     private int orderId;
     private Date orderDate;
     private int customerId;
+    private String customerEmail;
     private String deliveryOption;
     private String address;
     private boolean isCompleted;
@@ -18,6 +19,13 @@ public class CustomerOrder {
     public CustomerOrder(int orderId, int customerId, String deliveryOption, String address) {
         this.orderId = orderId;
         this.customerId = customerId;
+        this.deliveryOption = deliveryOption;
+        this.address = address;
+        orderDate= Calendar.getInstance().getTime();
+        isCompleted=false;
+    }
+    public CustomerOrder(String customerEmail, String deliveryOption, String address) {
+        this.customerEmail = customerEmail;
         this.deliveryOption = deliveryOption;
         this.address = address;
         orderDate= Calendar.getInstance().getTime();

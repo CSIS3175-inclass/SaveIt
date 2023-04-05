@@ -8,25 +8,27 @@
 
     <TextView
         android:id="@+id/restaurantName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="111dp"
+        android:layout_marginTop="5dp"
         android:text="@string/txtRestaurantName"
+        android:textAlignment="center"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/BundlesContainerView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/BundlesContainerView"
         android:name="com.group8.saveit.FoodBundleFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toBottomOf="@+id/order"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/restaurantName"
         tools:layout="@layout/fragment_food_bundle" />
 
     <!--    Navigation bar -->
@@ -59,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="113dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="22dp"
         android:text="@string/txtDefaultTotal"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintStart_toStartOf="@+id/frameLayout2" />
@@ -69,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="22dp"
         android:text="@string/txtTotal"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
         app:layout_constraintStart_toStartOf="parent" />
