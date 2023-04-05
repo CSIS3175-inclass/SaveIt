@@ -235,6 +235,7 @@ public String checkPassword(String username,String password) {
         ContentValues values = new ContentValues();
         values.put(B_COL2, price);
         values.put(B_COL4, RID);
+        values.put(B_COL5, 1);
         String[] itemArray = items.split(" ");
         // Join the array of items into a comma-separated string
         String itemString = TextUtils.join(",", itemArray);
