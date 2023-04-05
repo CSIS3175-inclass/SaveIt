@@ -24,41 +24,6 @@ public class FavoriteRestaurants extends AppCompatActivity implements FavoriteRe
 
         recyclerView.setAdapter(favoriteRestaurantAdapter);
 
-        ImageButton home = findViewById(R.id.home_icon);
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        ImageButton history = findViewById(R.id.history_icon);
-
-        history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        ImageButton favoriteRestaurants = findViewById(R.id.favorite_icon);
-
-        favoriteRestaurants.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        ImageButton profile = findViewById(R.id.profile_icon);
-
-        profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     @Override

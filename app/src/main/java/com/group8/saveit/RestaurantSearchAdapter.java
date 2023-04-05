@@ -69,11 +69,18 @@ public class RestaurantSearchAdapter extends BaseAdapter {
                 if(restaurant!=null){
                     int restaurantId = restaurant.getRid();
                     ArrayList<FoodBundle> foodBundles = databaseHelper.getFoodBundleByRestaurant(restaurantId);
+                    ArrayList<FoodBundle> availableFoodBundles = new ArrayList<>();
+
                     Log.i("test",restaurant.getName()+" has the following food bundles ");
+
                     for(int i=0;i<foodBundles.size();i++){
+                        if(foodBundles.get(i).isAvailable()){
+                            availableFoodBundles.add(foodBundles.get(i));
+                        }
                         Log.i("test","/t "+foodBundles.get(i).getBundleName()+" available: "+foodBundles.get(i).isAvailable());
                     }
-                    if(!foodBundles.isEmpty()){
+                    if(!availableFoodBundles.isEmpty()){
+
                         //pass restaurantId and customer email to OrderSummary activity to create new Order
                         intent.putExtra("restaurantId",restaurantId);
                         intent.putExtra("customerEmail",customerEmail);
@@ -83,7 +90,9 @@ public class RestaurantSearchAdapter extends BaseAdapter {
                         Toast.makeText(ctx, "This restaurant doesn't have any food bundle available at the moment", Toast.LENGTH_LONG).show();
                     }
                 }
-                Toast.makeText(ctx, "There's an issue with this restaurant please select another one", Toast.LENGTH_LONG).show();
+                else{
+                    Toast.makeText(ctx, "There's an issue with this restaurant please select another one", Toast.LENGTH_LONG).show();
+                }
 
             }
         });

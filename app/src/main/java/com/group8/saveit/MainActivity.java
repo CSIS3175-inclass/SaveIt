@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     String customerEmail; //keep track of customer's id throughout the activities to add new Order
+    int restaurantId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +69,10 @@ startActivity(new Intent(MainActivity.this,Registration.class));
             }
            else if(databaseHelper.checkPassword(username.getText().toString(),password.getText().toString())=="manager")
                 {
-                    startActivity(new Intent(MainActivity.this, HomeManagerActivity.class));
+                    Intent homeManagerIntent = new Intent(MainActivity.this, HomeManagerActivity.class);
+                    restaurantId = databaseHelper.getRestaurantIdByManager(username.getText().toString());
+                    homeManagerIntent.putExtra("restaurantId",restaurantId);
+                    startActivity(homeManagerIntent);
                 }else {
                 Toast.makeText(MainActivity.this,"incorrect password",Toast.LENGTH_LONG).show();
             }

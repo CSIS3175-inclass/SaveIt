@@ -7,7 +7,7 @@ import java.util.Date;
 
 public class CustomerOrder {
     private int orderId;
-    private Date orderDate;
+    private String orderDate;
     private int customerId;
     private String customerEmail;
     private String deliveryOption;
@@ -21,14 +21,16 @@ public class CustomerOrder {
         this.customerId = customerId;
         this.deliveryOption = deliveryOption;
         this.address = address;
-        orderDate= Calendar.getInstance().getTime();
+        Date date = Calendar.getInstance().getTime();
+        orderDate = date.toString();
         isCompleted=false;
     }
     public CustomerOrder(String customerEmail, String deliveryOption, String address) {
         this.customerEmail = customerEmail;
         this.deliveryOption = deliveryOption;
         this.address = address;
-        orderDate= Calendar.getInstance().getTime();
+        Date date = Calendar.getInstance().getTime();
+        orderDate = date.toString();
         isCompleted=false;
     }
 
@@ -40,11 +42,11 @@ public class CustomerOrder {
         this.orderId = orderId;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 

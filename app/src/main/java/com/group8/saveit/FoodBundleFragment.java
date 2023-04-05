@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 //implement CustomAdapter.OnFoodBundleCheckedListener to access updated total price and update Textview accordingly
 public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.OnFoodBundleCheckedListener {
-    private ArrayList<FoodBundle> foodBundles = new ArrayList<>();
+    private ArrayList<FoodBundle> foodBundles;
     private RecyclerView recyclerView;
     private double total = 0.0;
     private DatabaseHelper databaseHelper;
@@ -59,6 +59,7 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         recyclerView = view.findViewById(R.id.foodb_recycler);
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setLayoutManager(new GridLayoutManager
@@ -71,6 +72,8 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
     }
 
     private void loadData(int restaurantId){
+        foodBundles = new ArrayList<>();
+
         //Only display available food bundles
         ArrayList<FoodBundle> restaurantFoodBundles = databaseHelper.getFoodBundleByRestaurant(restaurantId);
         for(int i=0;i<restaurantFoodBundles.size();i++){
@@ -86,4 +89,5 @@ public class FoodBundleFragment extends Fragment implements FoodBundleAdapter.On
        TextView totalTxt = getActivity().findViewById(R.id.totalValue);
        totalTxt.setText("$"+Double.toString(total));
     }
+
 }

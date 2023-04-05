@@ -6,30 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".OrderSummaryActivity">
 
-    <FrameLayout
-        android:id="@+id/frameLayout2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="5dp"
-        android:background="#2196F3"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navigationContainerView2"
+        android:name="com.group8.saveit.UserMenuFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmOrderBtn">
-
-    </FrameLayout>
+        tools:layout="@layout/fragment_user_menu" />
 
     <TextView
         android:id="@+id/orderSummary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginEnd="22dp"
+        android:layout_marginEnd="89dp"
         android:text="@string/txtOrderSummary"
         android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="@+id/editPostalCode"
-        app:layout_constraintStart_toEndOf="@+id/address"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -48,9 +42,9 @@
         android:id="@+id/deliveryOptGrp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        app:layout_constraintStart_toStartOf="@+id/address"
-        app:layout_constraintTop_toBottomOf="@+id/deliveryOptions">
+        android:layout_marginBottom="11dp"
+        app:layout_constraintBottom_toTopOf="@+id/address"
+        app:layout_constraintStart_toStartOf="@+id/address">
 
         <RadioButton
             android:id="@+id/option1"
@@ -70,99 +64,80 @@
         android:id="@+id/deliveryOptions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="216dp"
+        android:layout_marginBottom="15dp"
         android:text="@string/txtDeliveryOptions"
-        app:layout_constraintStart_toStartOf="@+id/deliveryOptGrp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/deliveryOptGrp"
+        app:layout_constraintStart_toStartOf="@+id/deliveryOptGrp" />
 
     <TextView
         android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginBottom="9dp"
         android:text="@string/txtAddress"
-        app:layout_constraintStart_toStartOf="@+id/editStreet"
-        app:layout_constraintTop_toBottomOf="@+id/deliveryOptGrp" />
-
-    <EditText
-        android:id="@+id/editStreet"
-        android:layout_width="100dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="1dp"
-        android:ems="10"
-        android:hint="@string/hintStreet"
-        android:inputType="textPersonName"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/editStreet2"
-        app:layout_constraintEnd_toStartOf="@+id/editStreet2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address" />
+        app:layout_constraintBottom_toTopOf="@+id/editStreet2"
+        app:layout_constraintStart_toStartOf="@+id/editStreet2" />
 
     <EditText
         android:id="@+id/editStreet2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="177dp"
         android:ems="10"
         android:hint="@string/hintStreet"
         android:inputType="textPersonName"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/editCity"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/editPostalCode" />
 
     <EditText
         android:id="@+id/editCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="29dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/hintCity"
         android:inputType="textPersonName"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/total2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/editStreet2"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/total2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginStart="1dp"
         android:text="@string/txtTotal"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/confirmOrderBtn"
+        app:layout_constraintStart_toStartOf="@+id/editPostalCode"
+        app:layout_constraintTop_toTopOf="@+id/confirmOrderBtn" />
 
     <TextView
         android:id="@+id/totalPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="13dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="49dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintEnd_toEndOf="@+id/editCity" />
+        app:layout_constraintEnd_toStartOf="@+id/confirmOrderBtn"
+        app:layout_constraintTop_toBottomOf="@+id/editPostalCode" />
 
     <EditText
         android:id="@+id/editPostalCode"
-        android:layout_width="122dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="61dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="14dp"
         android:ems="10"
         android:hint="@string/hintPostalCode"
         android:inputType="textPersonName"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/confirmOrderBtn"
-        app:layout_constraintEnd_toEndOf="@+id/confirmOrderBtn"
-        app:layout_constraintStart_toStartOf="@+id/editStreet2"
+        app:layout_constraintBottom_toTopOf="@+id/total2"
+        app:layout_constraintEnd_toEndOf="@+id/totalPrice"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editStreet2" />
 
     <Button
@@ -170,7 +145,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="14dp"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="71dp"
         android:text="@string/btnConfirmOrder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

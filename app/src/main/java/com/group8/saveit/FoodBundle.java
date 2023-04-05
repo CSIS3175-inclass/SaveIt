@@ -35,6 +35,7 @@ public class FoodBundle implements Parcelable {
         this.items = items;
     }
 
+
     protected FoodBundle(Parcel in) {
         id = in.readLong();
         bundleName = in.readString();

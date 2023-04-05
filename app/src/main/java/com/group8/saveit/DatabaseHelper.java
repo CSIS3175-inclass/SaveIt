@@ -20,14 +20,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 19;
+    final static int DATABASE_VERSION = 21;
 
     final AssetManager assetManager = SaveItApp.getAppContext().getAssets(); //to get sql files from assets folder, and load dataset
 
@@ -217,6 +221,19 @@ public boolean addData(String name, String email, String password, String phone,
             return false;
 
     }
+
+    public int getRestaurantIdByManager(String email){
+        int restaurantId = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+MANAGER+" WHERE "+M_COL1+"=?",new String[]{email});
+        if(cursor.moveToFirst()){
+            int restaurantIdIndex=cursor.getColumnIndex(M_COL5);
+            if(restaurantIdIndex>-1){
+                restaurantId=cursor.getInt(restaurantIdIndex);
+            }
+        }
+        return  restaurantId;
+    }
 public Boolean checkUsername(String username){
         SQLiteDatabase sqlDB=this.getReadableDatabase();
             Cursor c=sqlDB.rawQuery("Select * from User_table where Email=?",new String[] {username});
@@ -326,10 +343,11 @@ public String checkPassword(String username,String password) {
     }
 
     //add New Customer order
-    public long addCustomerOrder(Date date,boolean isCompleted, int restaurantId, String customerEmail, int deliveryOption,String address){
+    public long addCustomerOrder(String date,boolean isCompleted, int restaurantId, String customerEmail, int deliveryOption,String address){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(O_COL2, String.valueOf(date));
+//        contentValues.put(O_COL2, String.valueOf(date));
+        contentValues.put(O_COL2, date);
         contentValues.put(O_COL3, isCompleted);
         contentValues.put(O_COL4, restaurantId);
         contentValues.put(O_COL5, customerEmail);
@@ -339,6 +357,65 @@ public String checkPassword(String username,String password) {
 //        returns the added Order's ID if inserted successfully, else return negative number
         return db.insert(ORDER,null,contentValues);
 
+    }
+
+    //get order by orderId
+    public CustomerOrder getOrderById(int oid){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ORDER+" WHERE "+O_COL1+"=?",new String[]{Integer.toString(oid)});
+        CustomerOrder customerOrder = null;
+        if(cursor.moveToFirst()){
+            int oidIndex = cursor.getColumnIndex(O_COL1);
+            int dateIndex = cursor.getColumnIndex(O_COL2);
+            int statusIndex = cursor.getColumnIndex(O_COL3);
+            int restaurantIndex = cursor.getColumnIndex(O_COL4);
+            int emailIndex = cursor.getColumnIndex(O_COL5);
+            int deliveryIndex = cursor.getColumnIndex(O_COL6);
+            int addressIndex = cursor.getColumnIndex(O_COL7);
+            if(oidIndex>-1&&dateIndex>-1&&statusIndex>-1&&restaurantIndex>-1&&deliveryIndex>-1&&addressIndex>-1){
+                String deliveryOption = cursor.getInt(deliveryIndex) ==1 ? "delivery" : "pick-up";
+                String dateStr = cursor.getString(dateIndex);
+                boolean isCompleted = cursor.getInt(statusIndex) == 1 ? true : false;
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+
+                customerOrder = new CustomerOrder(cursor.getString(emailIndex),
+                        deliveryOption,
+                        cursor.getString(addressIndex));
+                customerOrder.setOrderId(cursor.getInt(oidIndex));
+                customerOrder.setOrderDate(dateStr);
+//                try {
+//                    customerOrder.setOrderDate(format.parse(dateStr));
+//                }catch (ParseException parseException){
+//                    Log.i("test",parseException.toString());
+//                }
+                customerOrder.setAddress(cursor.getString(addressIndex));
+                customerOrder.setCompleted(isCompleted);
+                customerOrder.setOrderedFoodBundles(getFoodBundleByOrderId(customerOrder.getOrderId()));
+            }
+        }
+        return customerOrder;
+    }
+
+    //get customer order by restaurantId
+    @SuppressLint("Range")
+    public ArrayList<CustomerOrder> getOrdersByRid(int rid){
+        SQLiteDatabase db= this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ORDER+" WHERE "+O_COL4+"=?",new String[]{Integer.toString(rid)});
+        ArrayList<CustomerOrder> customerOrders = new ArrayList<>();
+
+        if(cursor.moveToFirst()){
+            do {
+                //make sure the index use is valid and the returned food bundle is not null
+                if(cursor.getColumnIndex(O_COL1)>-1){
+                    CustomerOrder newOrder = getOrderById(cursor.getInt(cursor.getColumnIndex(O_COL1)));
+                    if (newOrder!=null)
+                        customerOrders.add(newOrder);
+                }
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return customerOrders;
     }
 
     //update customer order status

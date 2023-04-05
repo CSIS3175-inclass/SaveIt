@@ -5,6 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ManageFoodBundleActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView7"
+        android:name="com.group8.saveit.managerMenuFragment"
+        android:layout_width="406dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        tools:layout="@layout/fragment_manager_menu" />
+
     <TextView
         android:id="@+id/titleManageBundles"
         android:layout_width="wrap_content"
@@ -36,8 +49,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="158dp"
-        app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
+        android:layout_marginBottom="184dp"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView7"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblYourFoodBundles"
@@ -51,69 +64,23 @@
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 
-    <FrameLayout
-        android:id="@+id/frameBottomMenu"
-        android:layout_width="410dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        android:background="#d6d7d7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddBundles">
-
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:contentDescription="@string/txtImage"
-            android:scaleType="fitCenter"
-            android:src="@drawable/home_img" />
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/txtImage"
-            android:scaleType="fitCenter"
-            android:src="@drawable/history_img"
-            tools:ignore="TouchTargetSizeCheck" />
-
-        <ImageButton
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="end"
-            android:contentDescription="@string/txtImage"
-            android:scaleType="fitCenter"
-            android:src="@drawable/profile_img" />
-
-
-    </FrameLayout>
-
     <Button
         android:id="@+id/btnAddBundles"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="417dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="43dp"
+        android:layout_width="115dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="114dp"
         android:text="@string/btnAddBundles"
-        app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnDeleteSelected"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <Button
         android:id="@+id/btnDeleteSelected"
-        android:layout_width="0dp"
+        android:layout_width="116dp"
         android:layout_height="73dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="76dp"
-        android:layout_marginBottom="43dp"
+        android:layout_marginTop="111dp"
         android:text="@string/btnDeleteSelected"
-        app:layout_constraintBottom_toTopOf="@+id/frameBottomMenu"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddBundles"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 

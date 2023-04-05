@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 public class OrderConfirmation extends AppCompatActivity {
     DatabaseHelper databaseHelper;
+    String customerEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +28,7 @@ public class OrderConfirmation extends AppCompatActivity {
             double totalNum=intent.getDoubleExtra("total",0);
             String deliveryOption=intent.getStringExtra("delivery");
             int restaurantId =intent.getIntExtra("restaurantId",0);
+            customerEmail = intent.getStringExtra("customerEmail");
 
             TextView orderId = findViewById(R.id.textViewOrderId);
             TextView restaurantName = findViewById(R.id.textViewRestaurantName);
@@ -49,45 +51,11 @@ public class OrderConfirmation extends AppCompatActivity {
                     //take back to restaurant page
                     Intent restaurantActivityIntent = new Intent(OrderConfirmation.this,RestaurantActivity.class);
                     restaurantActivityIntent.putExtra("restaurantId",restaurantId);
+                    restaurantActivityIntent.putExtra("customerEmail",customerEmail);
                     startActivity(restaurantActivityIntent);
                 }
             });
 
-            ImageButton home = findViewById(R.id.home_icon);
-
-            home.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-            ImageButton history = findViewById(R.id.history_icon);
-
-            history.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-            ImageButton favoriteRestaurants = findViewById(R.id.favorite_icon);
-
-            favoriteRestaurants.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-            ImageButton profile = findViewById(R.id.profile_icon);
-
-            profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
 
 

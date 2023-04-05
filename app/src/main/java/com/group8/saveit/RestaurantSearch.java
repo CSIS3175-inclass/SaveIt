@@ -41,41 +41,6 @@ public class RestaurantSearch extends AppCompatActivity {
             RestaurantSearchAdapter adapter =new RestaurantSearchAdapter(getApplicationContext(),arr1,arr2,restaurants,customerEmail);
             listView.setAdapter(adapter);
 
-            ImageButton home = findViewById(R.id.home_icon);
-
-            home.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-            ImageButton history = findViewById(R.id.history_icon);
-
-            history.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-            ImageButton favoriteRestaurants = findViewById(R.id.favorite_icon);
-
-            favoriteRestaurants.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-
-            ImageButton profile = findViewById(R.id.profile_icon);
-
-            profile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
 
     }
