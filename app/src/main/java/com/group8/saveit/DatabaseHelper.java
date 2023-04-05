@@ -458,13 +458,14 @@ public String checkPassword(String username,String password) {
             int emailIndex = cursor.getColumnIndex(U_COL1);
             int nameIndex = cursor.getColumnIndex(U_COL2);
             int phoneIndex = cursor.getColumnIndex(U_COL4);
+            int pwdIndex=cursor.getColumnIndex(U_COL3);
             int streetNameIndex = cursor.getColumnIndex(U_COL6);
             int cityIndex = cursor.getColumnIndex(U_COL7);
             int postIndex = cursor.getColumnIndex(U_COL8);
-            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
-                customer = new Customer(cursor.getString(emailIndex),
+            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&pwdIndex>-1&&cityIndex>-1&&postIndex>-1){
+                customer = new Customer(cursor.getString(emailIndex),cursor.getString(pwdIndex),
                         cursor.getString(nameIndex),
-                        cursor.getInt(phoneIndex),
+                        cursor.getString(phoneIndex),
                         cursor.getString(streetNameIndex),
                         cursor.getString(cityIndex),
                         cursor.getString(postIndex));
