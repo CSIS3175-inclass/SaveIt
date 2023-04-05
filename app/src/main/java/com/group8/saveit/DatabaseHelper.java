@@ -13,8 +13,6 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.group8.saveit.FoodBundle;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,7 +28,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String R_COL2 = "Name";
     final static String R_COL3 = "Start_Time";
     final static String R_COL4 = "End_Time";
-    final static String R_COL5 = "Street_Num";
     final static String R_COL6 = "Street";
     final static String R_COL7 = "City";
     final static String R_COL8 = "Postal_Code";
@@ -49,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String U_COL2 = "Name";
     final static String U_COL3 = "Password";
     final static String U_COL4 = "Phone_Num";
-    final static String U_COL5 = "Street_Num";
+
     final static String U_COL6 = "Street";
     final static String U_COL7 = "City";
     final static String U_COL8 = "Postal_Code";
@@ -91,7 +88,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 R_COL2 + " TEXT, " +
                 R_COL3 + " TIME, " +
                 R_COL4 + " TIME, " +
-                R_COL5 + " INTEGER, " +
                 R_COL6 + " TEXT, " +
                 R_COL7 + " TEXT, " +
                 R_COL8 + " TEXT);";
@@ -112,7 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 U_COL2 + " TEXT, " +
                 U_COL3 + " TEXT, " +
                 U_COL4 + " INTEGER, " +
-                U_COL5 + " INTEGER, " +
+
                 U_COL6 + " TEXT, " +
                 U_COL7 + " TEXT, " +
                 U_COL8 + " TEXT" +
@@ -165,7 +161,74 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
     }
 
-    public boolean addBundleData(Integer price, String items)
+public boolean addData(String name, String email, String password, String phone, String street, String city, String zipcode){
+        SQLiteDatabase sqlLite=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+    values.put(U_COL1,email);
+    values.put(U_COL2,name);
+    values.put(U_COL3,password);
+    values.put(U_COL4,phone);
+
+    values.put(U_COL6,street);
+    values.put(U_COL7,city);
+    values.put(U_COL8,zipcode);
+    long l = sqlLite.insert(USER,null,values);
+    if(l > 0)
+        return true;
+    else
+        return false;
+}
+    public boolean addDataManager(String name, String email, String password, String phone, String street, String city, String zipcode,String R_name,String Stime,String Etime){
+        SQLiteDatabase sqlLite=this.getWritableDatabase();
+        ContentValues values=new ContentValues();
+        ContentValues valuesM=new ContentValues();
+        values.put(R_COL2,R_name);
+        values.put(R_COL3,Stime);
+        values.put(R_COL4,Etime);
+        values.put(R_COL6,street);
+
+        values.put(R_COL8,zipcode);
+        values.put(R_COL7,city);
+        valuesM.put(M_COL1,email);
+        valuesM.put(M_COL2,name);
+        valuesM.put(M_COL3,password);
+        valuesM.put(M_COL4,phone);
+
+        long l = sqlLite.insert(RESTAURANT,null,values);
+        long m=sqlLite.insert(MANAGER,null,valuesM);
+
+        if(l > 0 && m > 0)
+            return true;
+        else
+            return false;
+
+    }
+public Boolean checkUsername(String username){
+        SQLiteDatabase sqlDB=this.getReadableDatabase();
+            Cursor c=sqlDB.rawQuery("Select * from User_table where Email=?",new String[] {username});
+            if(c.getCount()>0) {
+                return true;
+            }else{
+                return false;}
+    }
+public String checkPassword(String username,String password) {
+    SQLiteDatabase sqlDB = this.getReadableDatabase();
+    Cursor cu = sqlDB.rawQuery("Select * from User_table where Email=? and Password=?", new String[] {username,password});
+    Cursor cr = sqlDB.rawQuery("Select * from Manager_table where Email=? and Password=?", new String[] {username,password});
+
+    if (cu.getCount() > 0 )
+    {
+      return "user";
+    }
+      if(cr.getCount() >0 )
+      {
+          return "manager";
+      }
+      else return "";
+    }
+
+
+    public boolean addBundleData(Integer price,String items)
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
