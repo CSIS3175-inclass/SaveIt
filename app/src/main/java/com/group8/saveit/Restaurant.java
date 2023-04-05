@@ -5,17 +5,15 @@ public class Restaurant {
     private String name;
     private String start_time;
     private String end_time;
-    private int streetNum;
     private String streetName;
     private String city;
     private String postalCode;
 
-    public Restaurant(int rid, String name, String start_time, String end_time, int streetNum, String streetName, String city, String postalCode) {
+    public Restaurant(int rid, String name, String start_time, String end_time, String streetName, String city, String postalCode) {
         this.rid = rid;
         this.name = name;
         this.start_time = start_time;
         this.end_time = end_time;
-        this.streetNum = streetNum;
         this.streetName = streetName;
         this.city = city;
         this.postalCode = postalCode;
@@ -51,14 +49,6 @@ public class Restaurant {
 
     public void setEnd_time(String end_time) {
         this.end_time = end_time;
-    }
-
-    public int getStreetNum() {
-        return streetNum;
-    }
-
-    public void setStreetNum(int streetNum) {
-        this.streetNum = streetNum;
     }
 
     public String getStreetName() {

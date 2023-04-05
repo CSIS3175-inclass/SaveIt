@@ -70,9 +70,6 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
             restaurant=databaseHelper.getRestaurantByID(intent.getIntExtra("restaurantId",0));
 
             Customer customer = databaseHelper.getCustomerByEmail(customerEmail);
-            Log.i("test",customer.getStreetNum()+" ");
-            String customerStreetNum = Integer.toString(customer.getStreetNum());
-            editStreet.setText(customerStreetNum);
             editStreetName.setText(customer.getStreetName());
             editCity.setText(customer.getCity());
             editPostalCode.setText(customer.getPostalCode());
@@ -104,13 +101,13 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
                     String deliveryOptionTxt="Pick-up";
                     int deliveryOption=1;
                     //use Restaurant Address if Option is pickup
-                    address = restaurant.getStreetNum() +" "+restaurant.getStreetName()+" "+restaurant.getCity();
+                    address = restaurant.getStreetName()+" "+restaurant.getCity();
 
 
                     if(deliveryRadio.isChecked()){  //else use input restaurant
                         deliveryOptionTxt="Delivery";
                         deliveryOption=2;
-                        address = editStreet.getText()+" "+editStreetName.getText()+" "+editPostalCode.getText()+" "+editCity.getText();
+                        address = editStreetName.getText()+" "+editPostalCode.getText()+" "+editCity.getText();
                     }
 
 

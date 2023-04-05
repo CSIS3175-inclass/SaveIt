@@ -20,7 +20,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 14;
+    final static int DATABASE_VERSION = 15;
 
     //Restaurant table
     final static String RESTAURANT = "Restaurant_table";
@@ -406,18 +406,16 @@ public String checkPassword(String username,String password) {
                 int nameIndex = cursor.getColumnIndex(R_COL2);
                 int startIndex = cursor.getColumnIndex(R_COL3);
                 int endIndex = cursor.getColumnIndex(R_COL4);
-                int streetNumIndex = cursor.getColumnIndex(R_COL5);
                 int streetNameIndex = cursor.getColumnIndex(R_COL6);
                 int cityIndex = cursor.getColumnIndex(R_COL7);
                 int postIndex = cursor.getColumnIndex(R_COL8);
 
                 //make sure all indexes are valid
-                if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNumIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+                if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
                     restaurants.add(new Restaurant(cursor.getInt(ridIndex),
                             cursor.getString(nameIndex),
                             cursor.getString(startIndex),
                             cursor.getString(endIndex),
-                            cursor.getInt(streetNumIndex),
                             cursor.getString(streetNameIndex),
                             cursor.getString(cityIndex),
                             cursor.getString(postIndex)));
@@ -435,16 +433,14 @@ public String checkPassword(String username,String password) {
             int nameIndex = cursor.getColumnIndex(R_COL2);
             int startIndex = cursor.getColumnIndex(R_COL3);
             int endIndex = cursor.getColumnIndex(R_COL4);
-            int streetNumIndex = cursor.getColumnIndex(R_COL5);
             int streetNameIndex = cursor.getColumnIndex(R_COL6);
             int cityIndex = cursor.getColumnIndex(R_COL7);
             int postIndex = cursor.getColumnIndex(R_COL8);
-            if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNumIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+            if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
                 restaurant = new Restaurant(cursor.getInt(ridIndex),
                         cursor.getString(nameIndex),
                         cursor.getString(startIndex),
                         cursor.getString(endIndex),
-                        cursor.getInt(streetNumIndex),
                         cursor.getString(streetNameIndex),
                         cursor.getString(cityIndex),
                         cursor.getString(postIndex));
@@ -460,15 +456,13 @@ public String checkPassword(String username,String password) {
             int emailIndex = cursor.getColumnIndex(U_COL1);
             int nameIndex = cursor.getColumnIndex(U_COL2);
             int phoneIndex = cursor.getColumnIndex(U_COL4);
-            int streetNumIndex = cursor.getColumnIndex(U_COL5);
             int streetNameIndex = cursor.getColumnIndex(U_COL6);
             int cityIndex = cursor.getColumnIndex(U_COL7);
             int postIndex = cursor.getColumnIndex(U_COL8);
-            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNumIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
                 customer = new Customer(cursor.getString(emailIndex),
                         cursor.getString(nameIndex),
                         cursor.getInt(phoneIndex),
-                        cursor.getInt(streetNumIndex),
                         cursor.getString(streetNameIndex),
                         cursor.getString(cityIndex),
                         cursor.getString(postIndex));
