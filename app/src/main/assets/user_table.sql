@@ -1,0 +1,10 @@
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('bbugg0@ustream.tv', 'Balduin Bugg', 'TVOtjooGIwB', '8986306016', 'Bowman', 'New Westminster', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('whickisson1@bandcamp.com', 'Wolf Hickisson', 'UO0JaVU6', '9638962501', 'Dexter', 'Coquitlam', '234518');
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('gcrafts2@chronoengine.com', 'Giovanna Crafts', 'HlB1OHAaq3LB', '6808717559', 'Spenser', 'Coquitlam', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('nalton3@lulu.com', 'Nolana Alton', 'qsK04C7qUjb', '6213958659', 'Toban', 'New Westminster', '89401');
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('tesmond4@vimeo.com', 'Torrence Esmond', 'BF9BUR9aaS', '6415763519', 'Stone Corner', 'Coquitlam', '5106');
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('kechalie5@blog.com', 'Kennan Echalie', 'URwU3TUmS', '5598954717', 'Delaware', 'New Westminster', null);
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('onouch6@hp.com', 'Ody Nouch', 'UYaOUWZPUet', '3001439778', 'Warbler', 'Burnaby', '5020');
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('mgayton7@livejournal.com', 'Marilin Gayton', 'XWrsQi', '4256245041', '4th', 'Burnaby', '83404 CEDEX');
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('rogdahl8@last.fm', 'Rozalie Ogdahl', 'SgQdhd6', '8283785117', 'Lunder', 'Coquitlam', '243429');
+insert into User_table (Email, Name, Password, Phone_Num, Street, City, Postal_Code) values ('eredington9@qq.com', 'Ethel Redington', 'ioAE1naZ', '4879678510', 'Ronald Regan', 'Burnaby', null);
