@@ -1,18 +1,25 @@
 package com.group8.saveit;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +27,9 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 15;
+    final static int DATABASE_VERSION = 18;
+
+    final AssetManager assetManager = SaveItApp.getAppContext().getAssets(); //to get sql files from assets folder, and load dataset
 
     //Restaurant table
     final static String RESTAURANT = "Restaurant_table";
@@ -146,6 +155,10 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 "FOREIGN KEY("+OB_COL1+") REFERENCES "+ORDER+"("+O_COL1+"),"+
                 "FOREIGN KEY("+OB_COL2+") REFERENCES "+BUNDLES+"("+B_COL1+"))";
         sqLiteDatabase.execSQL(query);
+
+        if(assetManager!=null){
+            loadDB(sqLiteDatabase);
+        }
     }
 
     @Override
@@ -158,6 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ORDER_BUNDLE);
         onCreate(sqLiteDatabase);
+
 
     }
 
@@ -469,6 +483,54 @@ public String checkPassword(String username,String password) {
             }
         }
         return customer;
+    }
+    public void loadDB(SQLiteDatabase db){
+        try {
+
+            //read from file and load tables
+            //restaurant table
+
+            InputStream inputStream = assetManager.open("Restaurant_table.sql");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            String line;
+
+            while ((line = reader.readLine())!=null){
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //bundle table
+            inputStream = assetManager.open("Bundles_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //user table
+            inputStream = assetManager.open("User_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+            //manager table
+            inputStream = assetManager.open("Manager_table.sql");
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            while((line= reader.readLine())!=null)
+            {
+                db.execSQL(line);
+            }
+            inputStream.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
 }

@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseHelper=new DatabaseHelper(this);
-        loadDB(); //load database from assets/ sql files
 
         Button button = findViewById(R.id.button);
         TextView txtRegister=findViewById(R.id.registerLink);
@@ -77,58 +76,5 @@ startActivity(new Intent(MainActivity.this,Registration.class));
             }
         });
     }
-    public void loadDB(){
-        try {
-            SQLiteDatabase db = databaseHelper.getWritableDatabase();
-            //clear the table first
-            db.execSQL("DELETE FROM Restaurant_table;");
-            db.execSQL("DELETE FROM Bundles_table;");
-            db.execSQL("DELETE FROM User_table;");
-            db.execSQL("DELETE FROM Manager_table;");
-            db.execSQL("DELETE FROM Order_table");
-            db.execSQL("DELETE FROM Order_Bundle_table");
 
-            //read from file and load tables
-            //restaurant table
-            InputStream inputStream = this.getAssets().open("Restaurant_table.sql");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-            String line;
-            while ((line = reader.readLine())!=null){
-                db.execSQL(line);
-            }
-            inputStream.close();
-
-            //bundle table
-            inputStream = this.getAssets().open("Bundles_table.sql");
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            while((line= reader.readLine())!=null)
-            {
-                db.execSQL(line);
-            }
-            inputStream.close();
-
-            //user table
-            inputStream = this.getAssets().open("User_table.sql");
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            while((line= reader.readLine())!=null)
-            {
-                db.execSQL(line);
-            }
-            inputStream.close();
-
-            //manager table
-            inputStream = this.getAssets().open("Manager_table.sql");
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            while((line= reader.readLine())!=null)
-            {
-                db.execSQL(line);
-            }
-            inputStream.close();
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }
