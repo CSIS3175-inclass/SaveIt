@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
+    String customerEmail; //keep track of customer's id throughout the activities to add new Order
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +37,24 @@ startActivity(new Intent(MainActivity.this,Registration.class));
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this,RestaurantActivity.class));
+                customerEmail="sleestut0@shareasale.com"; // TODO: 4/4/2023 replace with customer email from login credential
                 //take to Restaurant search activity
-                startActivity(new Intent(MainActivity.this,RestaurantSearch.class));
+                Intent intent = new Intent(MainActivity.this,RestaurantSearch.class);
+                intent.putExtra("customerEmail",customerEmail);
+                startActivity(intent);
             }
         });
     }
     public void loadDB(){
         try {
             SQLiteDatabase db = databaseHelper.getWritableDatabase();
-            db.execSQL("DELETE FROM Restaurant_table;"); //clear the table first
-            db.execSQL("DELETE FROM Bundles_table;"); //clear the table first
-            db.execSQL("DELETE FROM User_table;"); //clear the table first
-            db.execSQL("DELETE FROM Manager_table;"); //clear the table first
+            //clear the table first
+            db.execSQL("DELETE FROM Restaurant_table;");
+            db.execSQL("DELETE FROM Bundles_table;");
+            db.execSQL("DELETE FROM User_table;");
+            db.execSQL("DELETE FROM Manager_table;");
+            db.execSQL("DELETE FROM Order_table");
+            db.execSQL("DELETE FROM Order_Bundle_table");
 
             //read from file and load tables
             //restaurant table

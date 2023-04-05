@@ -21,14 +21,16 @@ public class RestaurantSearchAdapter extends BaseAdapter {
     LayoutInflater inflater;
     ArrayList<Restaurant> restaurants = new ArrayList<>();
     DatabaseHelper databaseHelper;
+    String customerEmail;
 
-    public RestaurantSearchAdapter(Context ctx, String arr1[], int arr2[],ArrayList<Restaurant> restaurants){
+    public RestaurantSearchAdapter(Context ctx, String arr1[], int arr2[],ArrayList<Restaurant> restaurants, String customerEmail){
         this.ctx = ctx;
         this.arr1 = arr1;
         this.arr2 = arr2;
         inflater = LayoutInflater.from(ctx);
         this.restaurants=restaurants;
         databaseHelper=new DatabaseHelper(ctx);
+        this.customerEmail=customerEmail;
     }
     @Override
     public int getCount() {
@@ -72,7 +74,9 @@ public class RestaurantSearchAdapter extends BaseAdapter {
                         Log.i("test","/t "+foodBundles.get(i).getBundleName());
                     }
                     if(!foodBundles.isEmpty()){
+                        //pass restaurantId and customer email to OrderSummary activity to create new Order
                         intent.putExtra("restaurantId",restaurantId);
+                        intent.putExtra("customerEmail",customerEmail);
                         ctx.startActivity(intent);
                     }
                     else{

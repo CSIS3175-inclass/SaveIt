@@ -20,6 +20,9 @@ public class RestaurantActivity extends AppCompatActivity{
     Button orderBtn;
     ArrayList<FoodBundle> selectedFoodBundles= new ArrayList<FoodBundle>();
     DatabaseHelper databaseHelper;
+    ArrayList<Integer> selectedFoodBundleId = new ArrayList<Integer>();
+    String customerEmail;
+    TextView restaurantName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,15 +32,21 @@ public class RestaurantActivity extends AppCompatActivity{
 
         if(intent!=null){
 
-            //get restaurantId from RestaurantSearch activity
+            //get restaurantId from RestaurantSearch activity or OrderConfirmation activity
+            restaurantName=findViewById(R.id.restaurantName);
             int restaurantId = intent.getIntExtra("restaurantId",0);
+            customerEmail = intent.getStringExtra("customerEmail");
 
-//            FoodBundleFragment foodBundleFragment=new FoodBundleFragment();
-            Log.i("test"," restaurant activity restaurantId "+ restaurantId+" database "+databaseHelper);
+            //update restaurant name
+            Restaurant restaurant = databaseHelper.getRestaurantByID(restaurantId);
+
+            if(restaurant!=null){
+                restaurantName.setText(restaurant.getName());
+
+            }
+
+            //list foodBundles
             FoodBundleFragment foodBundleFragment=new FoodBundleFragment(databaseHelper,restaurantId);
-
-            //pass restaurantId and databasehelper to foodBundleFragment
-//            foodBundleFragment.setDatabaseHelper(databaseHelper);
             replaceFragment(foodBundleFragment); //replace BundlesContainerView with FoodBundleFragment
 
             orderBtn=findViewById(R.id.order);
@@ -51,12 +60,16 @@ public class RestaurantActivity extends AppCompatActivity{
                         FoodBundle foodBundle=foodBundles.get(i);
                         if(foodBundle.isChecked()){
                             selectedFoodBundles.add(foodBundle);
+                            selectedFoodBundleId.add((int)foodBundle.getId());
                         }
                     }
 
-                    //send selectedFoodBundle to OrderSummaryActivity
+                    //send required data to OrderSummaryActivity
                     Intent intent = new Intent(RestaurantActivity.this,OrderSummaryActivity.class);
                     intent.putExtra("selectedFoodBundles",selectedFoodBundles);
+                    intent.putExtra("selectedFoodBundlesId",selectedFoodBundleId);
+                    intent.putExtra("customerEmail",customerEmail);
+                    intent.putExtra("restaurantId",restaurantId);
                     startActivity(intent);
                 }
             });

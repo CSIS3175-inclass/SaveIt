@@ -22,7 +22,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 13;
+    final static int DATABASE_VERSION = 14;
 
     //Restaurant table
     final static String RESTAURANT = "Restaurant_table";
@@ -41,6 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     final static String B_COL2 = "Price";
     final static String B_COL3 = "Items";
     final static String B_COL4 = "RID";
+    final static String B_COL5 = "isAvailable";
 
     //Customer table
     final static String USER = "User_table";
@@ -101,6 +102,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 B_COL2 + " FLOAT, " +
                 B_COL3 + " TEXT, " +
                 B_COL4 + " INTEGER, " +
+                B_COL5 + " BOOLEAN, " +
                 "FOREIGN KEY(" + B_COL4 + ") REFERENCES " + RESTAURANT + "(" + R_COL1 + ")" +
                 ");";
         sqLiteDatabase.execSQL(query);
@@ -271,6 +273,16 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return db.update(ORDER,contentValues,O_COL1+"=?",new String[]{Integer.toString(orderId)}) > 0;
     }
 
+    //update Food bundle availability
+    public boolean updateBundleAvailability(int BID,boolean isAvailable){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(B_COL5,isAvailable);
+
+        //returns true is bundle's availability was updated successfully
+        return  db.update(BUNDLES,contentValues,B_COL1+"=?", new String[]{Integer.toString(BID)})>0;
+    }
+
     //delete an order
     public boolean deleteOrder(int orderId){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -350,6 +362,56 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             }while (cursor.moveToNext());
         }
         return restaurants;
+    }
+    public Restaurant getRestaurantByID(int rid){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+RESTAURANT+" WHERE "+R_COL1+"=?",new String[]{Integer.toString(rid)});
+        Restaurant restaurant = null;
+        if(cursor.moveToFirst()){
+            int ridIndex = cursor.getColumnIndex(R_COL1);
+            int nameIndex = cursor.getColumnIndex(R_COL2);
+            int startIndex = cursor.getColumnIndex(R_COL3);
+            int endIndex = cursor.getColumnIndex(R_COL4);
+            int streetNumIndex = cursor.getColumnIndex(R_COL5);
+            int streetNameIndex = cursor.getColumnIndex(R_COL6);
+            int cityIndex = cursor.getColumnIndex(R_COL7);
+            int postIndex = cursor.getColumnIndex(R_COL8);
+            if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNumIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+                restaurant = new Restaurant(cursor.getInt(ridIndex),
+                        cursor.getString(nameIndex),
+                        cursor.getString(startIndex),
+                        cursor.getString(endIndex),
+                        cursor.getInt(streetNumIndex),
+                        cursor.getString(streetNameIndex),
+                        cursor.getString(cityIndex),
+                        cursor.getString(postIndex));
+            }
+        }
+        return restaurant;
+    }
+    public Customer getCustomerByEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+USER+" WHERE "+U_COL1+"=?",new String[]{email});
+        Customer customer= null;
+        if(cursor.moveToFirst()){
+            int emailIndex = cursor.getColumnIndex(U_COL1);
+            int nameIndex = cursor.getColumnIndex(U_COL2);
+            int phoneIndex = cursor.getColumnIndex(U_COL4);
+            int streetNumIndex = cursor.getColumnIndex(U_COL5);
+            int streetNameIndex = cursor.getColumnIndex(U_COL6);
+            int cityIndex = cursor.getColumnIndex(U_COL7);
+            int postIndex = cursor.getColumnIndex(U_COL8);
+            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNumIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+                customer = new Customer(cursor.getString(emailIndex),
+                        cursor.getString(nameIndex),
+                        cursor.getInt(phoneIndex),
+                        cursor.getInt(streetNumIndex),
+                        cursor.getString(streetNameIndex),
+                        cursor.getString(cityIndex),
+                        cursor.getString(postIndex));
+            }
+        }
+        return customer;
     }
 
 }
