@@ -21,6 +21,7 @@ public class CurrentOrdersActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     int restaurantId;
     Button generateReport;
+    CurrentOrdersAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 recyclerView.setHasFixedSize(true);
                 CurrentOrdersAdapter adapter = new CurrentOrdersAdapter(customerOrders,this);
+                this.adapter=adapter;
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
             }
@@ -47,6 +49,7 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     try {
+                        adapter.notifyDataSetChanged();
                         //generate report (overwrite)
                         FileOutputStream fout = openFileOutput("orderreport.txt",MODE_PRIVATE);
                         String report = "\n Report from "+ Calendar.getInstance().getTime();

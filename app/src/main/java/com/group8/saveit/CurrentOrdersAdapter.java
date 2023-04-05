@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -45,12 +46,11 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         Log.i("test","Order number: "+customerOrder.getOrderId());
         holder.customer.setText(customerOrder.getCustomerEmail());
         holder.orderId.setText(Integer.toString(customerOrder.getOrderId()));
-//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         holder.date.setText(customerOrder.getOrderDate());
         holder.deliveryOption.setText(customerOrder.getDeliveryOption());
         holder.deliveryAddress.setText(customerOrder.getAddress());
-
         ArrayList<HashMap<String,String>> foodBundleList = new ArrayList<>();
+
         //bind customer's ordered foodbundle to listview
         String[] from = {"foodBundle"};
         int[] to = {R.id.subitem};
@@ -85,6 +85,16 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 Toast.makeText(context, "Reminder sent to customer "+customerOrder.getCustomerEmail(), Toast.LENGTH_LONG).show();
             }
         });
+
+        holder.completedCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean status = holder.completedCheck.isChecked();
+                DatabaseHelper databaseHelper = new DatabaseHelper(context);
+                databaseHelper.updateOrderStatus(customerOrder.getOrderId(),status);
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -100,6 +110,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         TextView deliveryAddress;
         ListView foodBundles;
         ImageButton sendReminderBtn;
+        CheckBox completedCheck;
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             customer = itemView.findViewById(R.id.customer2);
@@ -109,6 +120,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
             deliveryAddress = itemView.findViewById(R.id.deliveryAddress2);
             foodBundles = itemView.findViewById(R.id.orderedBundles);
             sendReminderBtn = itemView.findViewById((R.id.sendReminderBtn));
+            completedCheck = itemView.findViewById((R.id.completedCheck));
         }
     }
 }
