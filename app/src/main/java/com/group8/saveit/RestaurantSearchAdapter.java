@@ -23,14 +23,22 @@ public class RestaurantSearchAdapter extends BaseAdapter {
     DatabaseHelper databaseHelper;
     String customerEmail;
 
-    public RestaurantSearchAdapter(Context ctx, String arr1[], int arr2[],ArrayList<Restaurant> restaurants, String customerEmail){
+    public RestaurantSearchAdapter(Context ctx,ArrayList<Restaurant> restaurants, String customerEmail){
         this.ctx = ctx;
-        this.arr1 = arr1;
-        this.arr2 = arr2;
         inflater = LayoutInflater.from(ctx);
         this.restaurants=restaurants;
         databaseHelper=new DatabaseHelper(ctx);
         this.customerEmail=customerEmail;
+
+        String[] arr1 = new String[restaurants.size()];
+        int[] arr2 = new int[restaurants.size()];
+        for(int i = 0; i<restaurants.size();i++){
+            arr1[i]=restaurants.get(i).getName();
+            arr2[i]=R.drawable.pic;
+        }
+
+        this.arr1 = arr1;
+        this.arr2 = arr2;
     }
     @Override
     public int getCount() {
