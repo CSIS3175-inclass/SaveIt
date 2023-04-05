@@ -5,9 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -75,6 +78,13 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         ViewGroup.LayoutParams params = holder.foodBundles.getLayoutParams();
         params.height = listViewHeight + (holder.foodBundles.getDividerHeight() * (foodBundles.size() - 1));
         holder.foodBundles.setLayoutParams(params);
+
+        holder.sendReminderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "Reminder sent to customer "+customerOrder.getCustomerEmail(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -89,6 +99,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
         TextView deliveryOption;
         TextView deliveryAddress;
         ListView foodBundles;
+        ImageButton sendReminderBtn;
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             customer = itemView.findViewById(R.id.customer2);
@@ -97,6 +108,7 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
             deliveryOption = itemView.findViewById(R.id.deliveryType2);
             deliveryAddress = itemView.findViewById(R.id.deliveryAddress2);
             foodBundles = itemView.findViewById(R.id.orderedBundles);
+            sendReminderBtn = itemView.findViewById((R.id.sendReminderBtn));
         }
     }
 }
