@@ -92,6 +92,7 @@
     <string name="btnEdit">Edit</string>
     <string name="edTxtStartTime">Enter your start time</string>
     <string name="edTxtEndTime">Enter your end time</string>
+    <string name="txtWelcomeSplash">Welcome to Save It!</string>
 
 
 </resources>
