@@ -53,7 +53,7 @@
         android:layout_marginBottom="153dp"
         android:ems="10"
         android:hint="@string/passwordInput"
-        android:inputType="textPersonName"
+        android:inputType="textPersonName|textPassword"
         app:layout_constraintBottom_toTopOf="@+id/registerLink"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
