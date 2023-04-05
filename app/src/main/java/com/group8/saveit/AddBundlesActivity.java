@@ -3,6 +3,7 @@ package com.group8.saveit;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +22,8 @@ public class AddBundlesActivity extends AppCompatActivity {
     Button saveButton;
     EditText edTxtPrice;
     EditText edTxtBundleName;
+    SharedPreferences sharedPreferences;
+    String managerRID="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,9 @@ public class AddBundlesActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         saveButton = findViewById(R.id.btnSave);
         edTxtPrice = findViewById(R.id.edTxtPrice);
+
+        sharedPreferences = getSharedPreferences("MyPreferences",MODE_PRIVATE);
+        managerRID = sharedPreferences.getString("RID","");
 
         addButton.setOnClickListener(v -> {
             if (numClicks < 3) {
@@ -86,8 +92,10 @@ public class AddBundlesActivity extends AppCompatActivity {
                     String input = editText.getText().toString();
                     items += input + ",";
                 }
+                sharedPreferences = getSharedPreferences("MyPreferences",MODE_PRIVATE);
+                managerRID = sharedPreferences.getString("managerRID","");
                 String price = edTxtPrice.getText().toString();
-                isInserted = DatabaseHelper.addBundleData(Integer.parseInt(price),items);
+                isInserted = DatabaseHelper.addBundleData(Integer.parseInt(price),items, managerRID);
 
                 if(isInserted)
                 {

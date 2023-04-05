@@ -29,11 +29,9 @@ public class ManageFoodBundleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_food_bundle);
 
-        test = findViewById(R.id.test);
         btnAddBundles = findViewById(R.id.btnAddBundles);
         sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
         managerRID = sharedPreferences.getString("managerRID","");
-        test.setText(managerRID);
         btnAddBundles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

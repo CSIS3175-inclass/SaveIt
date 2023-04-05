@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,11 +15,15 @@ public class RestaurantSearch extends AppCompatActivity {
     ArrayList<Restaurant> restaurants=new ArrayList<>();
     DatabaseHelper databaseHelper;
     String customerEmail;
+
+    ImageButton profile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_search);
         Intent intent = getIntent();
+
+        profile = findViewById(R.id.profile_icon);
 
         if(intent!=null){
             //get email from Login or sing in activity
@@ -74,7 +77,7 @@ public class RestaurantSearch extends AppCompatActivity {
             profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(RestaurantSearch.this,userHome.class);
+                    Intent intent = new Intent(RestaurantSearch.this, userEdit.class);
                     intent.putExtra("customerEmail",customerEmail);
                     startActivity(intent);
 
@@ -82,6 +85,13 @@ public class RestaurantSearch extends AppCompatActivity {
                 }
             });
         }
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RestaurantSearch.this, userEdit.class));
+            }
+        });
 
     }
 }

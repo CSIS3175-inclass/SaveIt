@@ -229,11 +229,12 @@ public String checkPassword(String username,String password) {
     }
 
 
-    public boolean addBundleData(Integer price,String items)
+    public boolean addBundleData(Integer price,String items, String RID)
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(B_COL2, price);
+        values.put(B_COL4, RID);
         String[] itemArray = items.split(" ");
         // Join the array of items into a comma-separated string
         String itemString = TextUtils.join(",", itemArray);
@@ -480,5 +481,26 @@ public String checkPassword(String username,String password) {
 
         return cursor;
     }
+
+    public boolean updateCustomer(Customer customer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(U_COL2, customer.getName());
+        values.put(U_COL3, customer.getPassword());
+        values.put(U_COL4, customer.getPhone());
+        values.put(U_COL6, customer.getStreetName());
+        values.put(U_COL7, customer.getCity());
+        values.put(U_COL8, customer.getPostalCode());
+
+        int rowsAffected = db.update(USER, values, U_COL1 + " = ?",
+                new String[] { customer.getEmail() });
+
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+
 
 }

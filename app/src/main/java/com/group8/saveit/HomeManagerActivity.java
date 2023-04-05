@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 public class HomeManagerActivity extends AppCompatActivity {
@@ -14,7 +15,8 @@ public class HomeManagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_manager);
         ImageButton manageFoodBundles = findViewById(R.id.iBtnManage);
-        ImageButton test = findViewById(R.id.ibtnOrders);
+        ImageButton currentOrder = findViewById(R.id.ibtnOrders);
+
 
         manageFoodBundles.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -23,7 +25,7 @@ public class HomeManagerActivity extends AppCompatActivity {
             }
         });
 
-        test.setOnClickListener(new View.OnClickListener() {
+        currentOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeManagerActivity.this, CurrentOrdersActivity.class));

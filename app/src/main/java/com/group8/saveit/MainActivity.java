@@ -66,7 +66,9 @@ startActivity(new Intent(MainActivity.this,Registration.class));
             if(databaseHelper.checkPassword(username.getText().toString(),password.getText().toString())=="user")
             {
                 customerEmail=username.getText().toString(); // TODO: 4/4/2023 replace with customer email from login credential
-
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("customerEmail", customerEmail);
+                editor.apply();
 
                 //take to Restaurant search activity
                 Intent intent = new Intent(MainActivity.this,RestaurantSearch.class);
@@ -87,6 +89,8 @@ startActivity(new Intent(MainActivity.this,Registration.class));
                     }
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("managerRID", managerRID.toString());
+                    editor.putString("RID", managerRID.toString());
+                    editor.putString("MEmail", username.getText().toString());
                     editor.apply();
                     Log.d("MainActivity", "RID: " + managerRID);
                     Log.d("MainActivity", "SharedPreference RID: " + sharedPreferences.getString("managerRID", ""));

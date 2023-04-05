@@ -88,6 +88,10 @@
     <string name="street">Street</string>
     <string name="zipcode">Zipcode</string>
     <string name="btnLogout">LOGOUT</string>
+    <string name="edTxtStreetHint">Enter your street</string>
+    <string name="btnEdit">Edit</string>
+    <string name="edTxtStartTime">Enter your start time</string>
+    <string name="edTxtEndTime">Enter your end time</string>
 
 
 </resources>
