@@ -27,7 +27,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper{
 
     final static String DATABASE_NAME = "SaveIt.db";
-    final static int DATABASE_VERSION = 18;
+    final static int DATABASE_VERSION = 19;
 
     final AssetManager assetManager = SaveItApp.getAppContext().getAssets(); //to get sql files from assets folder, and load dataset
 
@@ -291,12 +291,13 @@ public String checkPassword(String username,String password) {
         Cursor cursor = db.rawQuery("SELECT * FROM "+BUNDLES+" WHERE "+B_COL1+"=?",new String[]{Integer.toString(foodBundleId)});
 
         FoodBundle foodBundle = null;
-        if(cursor.moveToFirst() && cursor.getColumnIndex(B_COL3)>-1 && cursor.getColumnIndex(B_COL1)>-1 && cursor.getColumnIndex(B_COL2)>-1){
+        if(cursor.moveToFirst() && cursor.getColumnIndex(B_COL3)>-1 && cursor.getColumnIndex(B_COL1)>-1 && cursor.getColumnIndex(B_COL2)>-1 && cursor.getColumnIndex(B_COL5)>-1){
             String items = cursor.getString(cursor.getColumnIndex(B_COL3));
             String[] itemList = items.split(",");
             foodBundle = new FoodBundle(cursor.getInt(cursor.getColumnIndex(B_COL1)),
                     cursor.getDouble(cursor.getColumnIndex(B_COL2)),
                     itemList);
+            foodBundle.setAvailable(cursor.getInt(cursor.getColumnIndex(B_COL5))==1?true:false);
         }
         cursor.close();
         return  foodBundle;
