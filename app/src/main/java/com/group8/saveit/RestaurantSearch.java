@@ -39,13 +39,6 @@ public class RestaurantSearch extends AppCompatActivity {
             databaseHelper = new DatabaseHelper(this);
             restaurants=databaseHelper.getAllRestaurants(); //replace when done
 
-            //populate data required for RestaurantSearchAdapter
-//            String[] arr1 = new String[restaurants.size()];
-//            int[] arr2 = new int[restaurants.size()];
-//            for(int i = 0; i<restaurants.size();i++){
-//                arr1[i]=restaurants.get(i).getName();
-//                arr2[i]=R.drawable.pic;
-//            }
 
             adapter =new RestaurantSearchAdapter(getApplicationContext(),restaurants,customerEmail);
             listView.setAdapter(adapter);
@@ -100,7 +93,7 @@ public class RestaurantSearch extends AppCompatActivity {
             home.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startActivity(new Intent(RestaurantSearch.this,RestaurantSearch.class));
+                    //startActivity(new Intent(RestaurantSearch.this,RestaurantSearch.class));
                 }
             });
 

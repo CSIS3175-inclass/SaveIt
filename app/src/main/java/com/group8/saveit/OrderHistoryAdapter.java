@@ -11,11 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class OrderHistoryAdapter extends RecyclerView.Adapter {
 
     Context context;
-    OrderHistoryAdapter(Context context){
+    ArrayList<Order> orders;
+    OrderHistoryAdapter(Context context, ArrayList<Order> orders){
+
         this.context = context;
+        this.orders = orders;
     }
     @NonNull
     @Override
@@ -27,18 +32,29 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        ((OrderView)holder).textViewOrderId.setText("OrderId:" + position);
-//        ((OrderView)holder).textViewDate.setText();
-//        ((OrderView)holder).textViewRestaurantName.setText();
-//        ((OrderView)holder).textViewBundles.setText();
-//        ((OrderView)holder).textViewTotal.setText();
-//        ((OrderView)holder).textViewOrderStatus.setText();
+        Order object = orders.get(position);
+
+        ((OrderView)holder).textViewOrderId.setText("OrderId: " + object.getOrderId());
+        ((OrderView)holder).textViewDate.setText("Date: " + object.orderDate);
+        ((OrderView)holder).textViewRestaurantName.setText("RestaurantName: " + object.getRestaurantName());
+        String bundles = "";
+            for(int i=0;i<object.getBundles().size();i++){
+                if(i==object.getBundles().size()-1){
+                    bundles = bundles + "Bundle Id: " +object.getBundles().get(i);
+                }else{
+                    bundles = bundles + "Bundle Id: " + object.getBundles().get(i) +"\n";
+                }
+            }
+
+        ((OrderView)holder).textViewBundles.setText(bundles);
+        ((OrderView)holder).textViewTotal.setText("Total: $" + object.getTotalPrice());
+        ((OrderView)holder).textViewOrderStatus.setText("Order Status: " + object.getOrderStatus());
 
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return orders.size();
     }
 
     class OrderView extends RecyclerView.ViewHolder{

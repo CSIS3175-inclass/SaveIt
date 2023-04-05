@@ -4,19 +4,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 public class OrderHistory extends AppCompatActivity {
 
+    String customerEmail;
+    DatabaseHelper databaseHelper;
+
+    ArrayList<Order> orders ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_history);
-
+        Intent intent = getIntent();
+        customerEmail = intent.getStringExtra("customerEmail");
+        databaseHelper = new DatabaseHelper(this);
+        orders=databaseHelper.getAllOrderByUser("abc");
         RecyclerView ordersHistoryRecyclerView = findViewById(R.id.recyclerviewFavoriteRestaurants);
-        OrderHistoryAdapter orderHistoryAdapter =new OrderHistoryAdapter(getApplicationContext());
+        OrderHistoryAdapter orderHistoryAdapter =new OrderHistoryAdapter(getApplicationContext(),orders);
         ordersHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         ordersHistoryRecyclerView.setAdapter(orderHistoryAdapter);
 
@@ -25,7 +35,7 @@ public class OrderHistory extends AppCompatActivity {
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(OrderHistory.this,RestaurantSearch.class));
             }
         });
 
@@ -34,7 +44,7 @@ public class OrderHistory extends AppCompatActivity {
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //startActivity(new Intent(OrderHistory.this,OrderHistory.class));
             }
         });
 
@@ -43,7 +53,7 @@ public class OrderHistory extends AppCompatActivity {
         favoriteRestaurants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(OrderHistory.this,FavoriteRestaurants.class));
             }
         });
 

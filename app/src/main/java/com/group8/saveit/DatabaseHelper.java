@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -500,4 +501,47 @@ public String checkPassword(String username,String password) {
         return restaurants;
     }
 
-}
+    public ArrayList<Order> getAllOrderByUser(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + O_COL1 + "," + O_COL2 + "," +  O_COL3 + "," +  O_COL4 + " FROM " +
+                        ORDER + " WHERE " +  O_COL5 + " = '" + email +"'",null);
+
+
+        ArrayList<Order> orders  = new ArrayList<>();
+
+        if (cursor.getCount() > 0) {
+
+        while (cursor.moveToNext()) {
+//
+            String oID = cursor.getString(0);
+            String orderDate = cursor.getString(1);
+            String orderStatus = cursor.getString(2);
+            String rId = cursor.getString(3);
+            Cursor cursorRes = db.rawQuery("SELECT " + R_COL2  + " FROM " + RESTAURANT + " WHERE " +  R_COL1 + " = '" + rId +"'",null);
+            String resName = "";
+            String bId;
+            int totalPrice = 0;
+            if(cursorRes.moveToFirst()){
+                 resName = cursorRes.getString(0);
+
+            }
+            Cursor cursorBundle = db.rawQuery("SELECT " + OB_COL2  + " FROM " + ORDER_BUNDLE + " WHERE " +  OB_COL1 + " = '" + oID +"'",null);
+
+             ArrayList<String> bundles =new ArrayList<String>();
+            while (cursorBundle.moveToNext()) {
+                bId = cursorBundle.getString(0);
+                bundles.add(bId);
+                Cursor cursorBundle2 = db.rawQuery("SELECT " + B_COL2  + " FROM " + BUNDLES + " WHERE " +  B_COL1 + " = '" + bId +"'",null);
+                while (cursorBundle2.moveToNext()) {
+                    totalPrice = totalPrice + Integer.parseInt(cursorBundle2.getString(0));
+                }
+            }
+    Order order = new Order(oID,orderDate,resName,bundles,totalPrice,orderStatus);
+            orders.add(order);
+        }
+        }
+
+        return  orders;
+
+        }
+    }
