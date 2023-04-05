@@ -259,11 +259,13 @@ public String checkPassword(String username,String password) {
     }
 
 
-    public boolean addBundleData(Integer price,String items)
+    public boolean addBundleData(Integer price,String items, String RID)
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(B_COL2, price);
+        values.put(B_COL4, RID);
+        values.put(B_COL5, 1);
         String[] itemArray = items.split(" ");
         // Join the array of items into a comma-separated string
         String itemString = TextUtils.join(",", itemArray);
@@ -286,8 +288,9 @@ public String checkPassword(String username,String password) {
                 @SuppressLint("Range") int bundleId = cursor.getInt(cursor.getColumnIndex(B_COL1));
                 @SuppressLint("Range") int price = cursor.getInt(cursor.getColumnIndex(B_COL2));
                 @SuppressLint("Range") String items = cursor.getString(cursor.getColumnIndex(B_COL3));
+                @SuppressLint("Range") String RID = cursor.getString(cursor.getColumnIndex(B_COL4));
 //                FoodBundle bundle = new FoodBundle(bundleId, price, items);
-                FoodBundle bundle = new FoodBundle(bundleId, items,price);
+                FoodBundle bundle = new FoodBundle(bundleId, items,price, RID);
                 bundles.add(bundle);
             } while (cursor.moveToNext());
         }
@@ -548,13 +551,14 @@ public String checkPassword(String username,String password) {
             int emailIndex = cursor.getColumnIndex(U_COL1);
             int nameIndex = cursor.getColumnIndex(U_COL2);
             int phoneIndex = cursor.getColumnIndex(U_COL4);
+            int pwdIndex=cursor.getColumnIndex(U_COL3);
             int streetNameIndex = cursor.getColumnIndex(U_COL6);
             int cityIndex = cursor.getColumnIndex(U_COL7);
             int postIndex = cursor.getColumnIndex(U_COL8);
-            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
-                customer = new Customer(cursor.getString(emailIndex),
+            if(emailIndex>-1&&nameIndex>-1&&phoneIndex>-1&&streetNameIndex>-1&&pwdIndex>-1&&cityIndex>-1&&postIndex>-1){
+                customer = new Customer(cursor.getString(emailIndex),cursor.getString(pwdIndex),
                         cursor.getString(nameIndex),
-                        cursor.getInt(phoneIndex),
+                        cursor.getString(phoneIndex),
                         cursor.getString(streetNameIndex),
                         cursor.getString(cityIndex),
                         cursor.getString(postIndex));
@@ -639,5 +643,33 @@ public String checkPassword(String username,String password) {
         }
         return restaurants;
     }
+
+    public Cursor getRIDByEmail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + M_COL5 + " FROM "+ MANAGER +" WHERE "+M_COL1+"=?",new String[]{email});
+
+        return cursor;
+    }
+
+    public boolean updateCustomer(Customer customer) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(U_COL2, customer.getName());
+        values.put(U_COL3, customer.getPassword());
+        values.put(U_COL4, customer.getPhone());
+        values.put(U_COL6, customer.getStreetName());
+        values.put(U_COL7, customer.getCity());
+        values.put(U_COL8, customer.getPostalCode());
+
+        int rowsAffected = db.update(USER, values, U_COL1 + " = ?",
+                new String[] { customer.getEmail() });
+
+        db.close();
+
+        return rowsAffected > 0;
+    }
+
+
 
 }

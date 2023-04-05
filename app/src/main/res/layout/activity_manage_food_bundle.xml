@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ManageFoodBundleActivity">
 
+<<<<<<< HEAD
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView7"
         android:name="com.group8.saveit.managerMenuFragment"
@@ -18,6 +19,8 @@
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         tools:layout="@layout/fragment_manager_menu" />
 
+=======
+>>>>>>> origin/editProfile
     <TextView
         android:id="@+id/titleManageBundles"
         android:layout_width="wrap_content"
@@ -64,14 +67,62 @@
         </androidx.recyclerview.widget.RecyclerView>
     </ScrollView>
 
+<<<<<<< HEAD
     <Button
         android:id="@+id/btnAddBundles"
         android:layout_width="115dp"
         android:layout_height="71dp"
         android:layout_marginTop="114dp"
+=======
+    <FrameLayout
+        android:id="@+id/frameBottomMenu"
+        android:layout_width="410dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:background="#d6d7d7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:contentDescription="@string/txtImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home_img" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/txtImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/history_img"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="end"
+            android:contentDescription="@string/txtImage"
+            android:scaleType="fitCenter"
+            android:src="@drawable/profile_img" />
+
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btnAddBundles"
+        android:layout_width="133dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="417dp"
+        android:layout_marginBottom="43dp"
+>>>>>>> origin/editProfile
         android:text="@string/btnAddBundles"
         app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView7"
         app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
     <Button
@@ -84,4 +135,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
+=======
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+>>>>>>> origin/editProfile
 </androidx.constraintlayout.widget.ConstraintLayout>

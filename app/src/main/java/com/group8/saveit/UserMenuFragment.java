@@ -59,9 +59,8 @@ public class UserMenuFragment extends Fragment {
         });
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // TODO: 4/5/2023 update with profile
-//                startActivity(new Intent(getContext(),.class));
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), userEdit.class));
             }
         });
     }
