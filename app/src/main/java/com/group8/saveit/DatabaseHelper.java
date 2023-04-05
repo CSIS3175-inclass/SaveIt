@@ -471,4 +471,33 @@ public String checkPassword(String username,String password) {
         return customer;
     }
 
+    public ArrayList<Restaurant> getAllRestaurantsByCity(String cityName){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+RESTAURANT +" WHERE " + R_COL7 + "= '" + cityName + "'",null);
+        ArrayList<Restaurant> restaurants = new ArrayList<>();
+        if(cursor.moveToFirst()){
+            do{
+                int ridIndex = cursor.getColumnIndex(R_COL1);
+                int nameIndex = cursor.getColumnIndex(R_COL2);
+                int startIndex = cursor.getColumnIndex(R_COL3);
+                int endIndex = cursor.getColumnIndex(R_COL4);
+                int streetNameIndex = cursor.getColumnIndex(R_COL6);
+                int cityIndex = cursor.getColumnIndex(R_COL7);
+                int postIndex = cursor.getColumnIndex(R_COL8);
+
+                //make sure all indexes are valid
+                if(ridIndex>-1&&nameIndex>-1&&startIndex>-1&&endIndex>-1&&streetNameIndex>-1&&cityIndex>-1&&postIndex>-1){
+                    restaurants.add(new Restaurant(cursor.getInt(ridIndex),
+                            cursor.getString(nameIndex),
+                            cursor.getString(startIndex),
+                            cursor.getString(endIndex),
+                            cursor.getString(streetNameIndex),
+                            cursor.getString(cityIndex),
+                            cursor.getString(postIndex)));
+                }
+            }while (cursor.moveToNext());
+        }
+        return restaurants;
+    }
+
 }
