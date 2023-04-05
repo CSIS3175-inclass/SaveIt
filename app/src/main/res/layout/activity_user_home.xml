@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userHome">
+
+  <TextView
+      android:id="@+id/txtName_P"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="66dp"
+      android:textSize="20sp"
+      app:layout_constraintStart_toStartOf="@+id/Up_Name"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/Up_Name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="44dp"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/Up_phone"
+      app:layout_constraintStart_toStartOf="@+id/Up_phone"
+      app:layout_constraintTop_toBottomOf="@+id/txtName_P" />
+
+  <TextView
+      android:id="@+id/Up_phone"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="17dp"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/Up_password"
+      app:layout_constraintStart_toStartOf="@+id/Up_password"
+      app:layout_constraintTop_toBottomOf="@+id/Up_Name" />
+
+  <TextView
+      android:id="@+id/Up_password"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="26dp"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/txtAddress"
+      app:layout_constraintStart_toStartOf="@+id/txtAddress"
+      app:layout_constraintTop_toBottomOf="@+id/Up_phone" />
+
+  <TextView
+      android:id="@+id/txtAddress"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="122dp"
+      android:text="@string/txtAddressLabel"
+      android:textSize="20sp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/Up_street"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="23dp"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/txtAddress"
+      app:layout_constraintStart_toStartOf="@+id/txtAddress"
+      app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
+
+  <TextView
+      android:id="@+id/Up_city"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="27dp"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/Up_street"
+      app:layout_constraintStart_toStartOf="@+id/Up_street"
+      app:layout_constraintTop_toBottomOf="@+id/Up_street" />
+
+  <Button
+      android:id="@+id/button2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="59dp"
+      android:layout_marginBottom="16dp"
+      android:text="Button"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  <TextView
+      android:id="@+id/Up_zip"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="30dp"
+      android:textSize="20sp"
+      app:layout_constraintEnd_toStartOf="@+id/Up_city"
+      app:layout_constraintStart_toStartOf="@+id/Up_city"
+      app:layout_constraintTop_toBottomOf="@+id/Up_city" />
+</androidx.constraintlayout.widget.ConstraintLayout>

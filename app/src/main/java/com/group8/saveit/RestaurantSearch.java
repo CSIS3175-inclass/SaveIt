@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -73,6 +74,10 @@ public class RestaurantSearch extends AppCompatActivity {
             profile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Intent intent = new Intent(RestaurantSearch.this,userHome.class);
+                    intent.putExtra("customerEmail",customerEmail);
+                    startActivity(intent);
+
 
                 }
             });

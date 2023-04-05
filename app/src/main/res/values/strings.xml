@@ -77,6 +77,8 @@
     <string name="managerREgister">Click here to register as a manager</string>
     <string name="txtStart">Start Time</string>
     <string name="txtEndTIme">End Time</string>
+    <string name="txtAddressLabel">Address details</string>
+    <string name="txtAddressLAbel">Address details</string>
 
 
 </resources>

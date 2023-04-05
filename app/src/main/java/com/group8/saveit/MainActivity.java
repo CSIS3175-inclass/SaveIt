@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         databaseHelper=new DatabaseHelper(this);
-        loadDB(); //load database from assets/ sql files
+         //load database from assets/ sql files
 
         Button button = findViewById(R.id.button);
         TextView txtRegister=findViewById(R.id.registerLink);
