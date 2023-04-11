@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         databaseHelper=new DatabaseHelper(this);
         sharedPreferences = getSharedPreferences("MyPreferences",MODE_PRIVATE);
-        loadDB(); //load database from assets/ sql files
+      //  loadDB(); //load database from assets/ sql files
 
         Button button = findViewById(R.id.button);
         TextView txtRegister=findViewById(R.id.registerLink);

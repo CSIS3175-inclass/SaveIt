@@ -1,6 +1,9 @@
 package com.group8.saveit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -60,7 +63,16 @@ public class ManageFoodBundleActivity extends AppCompatActivity {
         ManagerFoodBundleAdapter adapter = new ManagerFoodBundleAdapter(filteredBundles,databaseHelper,this);
         recyclerView.setAdapter(adapter);
 
+        managerMenuFragment managerMenuFragment = new managerMenuFragment();
+        replaceFragment(managerMenuFragment);
 
 
+
+    }
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.navigationContainerView7,fragment);
+        transaction.commit();
     }
 }

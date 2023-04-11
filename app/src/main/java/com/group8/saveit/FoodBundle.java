@@ -52,6 +52,7 @@ public class FoodBundle implements Parcelable {
         price = in.readDouble();
         items = in.createStringArray();
         checked = in.readByte() != 0;
+        RID = in.readString();
     }
 
     public static final Creator<FoodBundle> CREATOR = new Creator<FoodBundle>() {

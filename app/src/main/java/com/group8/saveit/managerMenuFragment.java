@@ -61,7 +61,7 @@ public class managerMenuFragment extends Fragment {
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),CurrentOrdersActivity.class));
+                //startActivity(new Intent(getContext(),CurrentOrdersActivity.class));
             }
         });
         profile.setOnClickListener(new View.OnClickListener() {
