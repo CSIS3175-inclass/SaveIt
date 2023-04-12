@@ -23,15 +23,21 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
     LayoutInflater layoutInflater;
     TextView totalPrice;
 
+    ArrayList<Integer> foodBundlesId;
 
-    public OrderSummaryAdapter(Context context, ArrayList<FoodBundle> foodBundles, TextView totalPrice) {
+
+    public OrderSummaryAdapter(Context context, ArrayList<FoodBundle> foodBundles, TextView totalPrice, ArrayList<Integer> foodBundlesId) {
         this.context = context;
         this.foodBundles = foodBundles;
         this.layoutInflater = LayoutInflater.from(context);
         this.totalPrice = totalPrice;
+        this.foodBundlesId=foodBundlesId;
     }
     public void deleteFoodBundle(int position){
+
         foodBundles.remove(position);
+        foodBundlesId.remove(position);
+
     }
 
     private OnDataChangedListener onDataChangedListener;

@@ -82,7 +82,7 @@ public class OrderSummaryActivity extends AppCompatActivity implements OrderSumm
 //            recyclerView.setLayoutManager(new GridLayoutManager(this,1));
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 recyclerView.setHasFixedSize(true);
-                OrderSummaryAdapter adapter=new OrderSummaryAdapter(this,foodBundles,totalPrice);
+                OrderSummaryAdapter adapter=new OrderSummaryAdapter(this,foodBundles,totalPrice,foodBundlesId);
                 adapter.setOnDataChangedListener(this);
                 recyclerView.setAdapter(adapter);
 
