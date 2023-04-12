@@ -55,7 +55,8 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     try {
-                        adapter.notifyDataSetChanged();
+                        //update data
+                        loadData();
                         //generate report (overwrite)
                         FileOutputStream fout = openFileOutput("orderreport.txt",MODE_PRIVATE);
                         String report = "\n Report from "+ Calendar.getInstance().getTime();

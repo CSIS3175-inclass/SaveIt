@@ -85,15 +85,11 @@ public class CurrentOrdersAdapter extends RecyclerView.Adapter<CurrentOrdersAdap
                 Toast.makeText(context, "Reminder sent to customer "+customerOrder.getCustomerEmail(), Toast.LENGTH_LONG).show();
             }
         });
+        holder.completedCheck.setChecked(customerOrder.isCompleted());
 
-        holder.completedCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                boolean status = holder.completedCheck.isChecked();
-                DatabaseHelper databaseHelper = new DatabaseHelper(context);
-                databaseHelper.updateOrderStatus(customerOrder.getOrderId(),status);
-                notifyDataSetChanged();
-            }
+        holder.completedCheck.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            DatabaseHelper databaseHelper = new DatabaseHelper(context);
+            databaseHelper.updateOrderStatus(customerOrder.getOrderId(),isChecked);
         });
     }
 
