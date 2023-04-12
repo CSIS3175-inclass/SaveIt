@@ -213,6 +213,7 @@ public boolean addData(String name, String email, String password, String phone,
         valuesM.put(M_COL4,phone);
 
         long l = sqlLite.insert(RESTAURANT,null,values);
+        valuesM.put(M_COL5,l);
         long m=sqlLite.insert(MANAGER,null,valuesM);
 
         if(l > 0 && m > 0)

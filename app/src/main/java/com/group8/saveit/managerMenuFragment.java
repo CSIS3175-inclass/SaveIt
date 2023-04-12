@@ -1,6 +1,7 @@
 package com.group8.saveit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -71,8 +72,10 @@ public class managerMenuFragment extends Fragment {
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 4/5/2023 update with profile
-//                startActivity(new Intent(getContext(),.class));
+
+                // Return to the login activity
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
     }
