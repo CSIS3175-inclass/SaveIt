@@ -6,17 +6,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 
 public class managerMenuFragment extends Fragment {
@@ -49,19 +44,28 @@ public class managerMenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         home = view.findViewById(R.id.home_icon_2);
-        history = view.findViewById(R.id.history_icon_2);
+        history = view.findViewById(R.id.history_icon_manager);
         profile = view.findViewById(R.id.profile_icon_2);
 
         home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),HomeManagerActivity.class));
+                Intent prevIntent = getActivity().getIntent();
+                int rid = prevIntent.getIntExtra("restaurantId",0);
+                Intent newIntent = new Intent(getContext(),HomeManagerActivity.class);
+                newIntent.putExtra("restaurantId",rid);
+                startActivity(newIntent);
             }
         });
         history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent(getContext(),CurrentOrdersActivity.class));
+                Log.d("test","manager history");
+                Intent prevIntent = getActivity().getIntent();
+                int rid = prevIntent.getIntExtra("restaurantId",0);
+                Intent newIntent = new Intent(getContext(),CurrentOrdersActivity.class);
+                newIntent.putExtra("restaurantId",rid);
+                startActivity(newIntent);
             }
         });
         profile.setOnClickListener(new View.OnClickListener() {

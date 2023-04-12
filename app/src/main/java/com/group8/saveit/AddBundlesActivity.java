@@ -113,7 +113,7 @@ public class AddBundlesActivity extends AppCompatActivity {
             }
         });
 
-        managerMenuFragment managerMenuFragment = new managerMenuFragment(Integer.parseInt(managerRID));
+        managerMenuFragment managerMenuFragment = new managerMenuFragment();
         replaceFragment(managerMenuFragment);
 
     }

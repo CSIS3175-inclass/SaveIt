@@ -17,7 +17,7 @@
         tools:ignore="DuplicateSpeakableTextCheck" />
 
     <ImageButton
-        android:id="@+id/history_icon_2"
+        android:id="@+id/history_icon_manager"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

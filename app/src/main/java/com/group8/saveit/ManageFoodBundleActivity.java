@@ -26,42 +26,48 @@ public class ManageFoodBundleActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String managerRID;
     TextView test;
-
+    int restaurantId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_food_bundle);
+        Intent intent =getIntent();
+        if(intent!=null){
+            restaurantId=intent.getIntExtra("restaurantId",restaurantId);
+            btnAddBundles = findViewById(R.id.btnAddBundles);
+            sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
+            managerRID = sharedPreferences.getString("managerRID","");
+            btnAddBundles.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent ordersIntent = new Intent(ManageFoodBundleActivity.this, AddBundlesActivity.class);
+                    ordersIntent.putExtra("restaurantId",restaurantId);
+                    startActivity(ordersIntent);
+                }
+            });
 
-        btnAddBundles = findViewById(R.id.btnAddBundles);
-        sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE);
-        managerRID = sharedPreferences.getString("managerRID","");
-        btnAddBundles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ManageFoodBundleActivity.this, AddBundlesActivity.class));
-            }
-        });
+            com.group8.saveit.DatabaseHelper databaseHelper = new com.group8.saveit.DatabaseHelper(this);
 
-        com.group8.saveit.DatabaseHelper databaseHelper = new com.group8.saveit.DatabaseHelper(this);
+            // Get list of all bundles from the database
+            ArrayList<FoodBundle> bundles = databaseHelper.getAllBundles();
 
-        // Get list of all bundles from the database
-        ArrayList<FoodBundle> bundles = databaseHelper.getAllBundles();
-
-        ArrayList<FoodBundle> filteredBundles = new ArrayList<>();
-        for (FoodBundle foodBundle : bundles)
-        {
-            if(foodBundle.getRID().equals(managerRID))
+            ArrayList<FoodBundle> filteredBundles = new ArrayList<>();
+            for (FoodBundle foodBundle : bundles)
             {
-                filteredBundles.add(foodBundle);
+                if(foodBundle.getRID().equals(managerRID))
+                {
+                    filteredBundles.add(foodBundle);
+                }
             }
+
+
+            // Set up recycler view with bundle adapter
+            RecyclerView recyclerView = findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            ManagerFoodBundleAdapter adapter = new ManagerFoodBundleAdapter(filteredBundles,databaseHelper,this);
+            recyclerView.setAdapter(adapter);
         }
 
-
-        // Set up recycler view with bundle adapter
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ManagerFoodBundleAdapter adapter = new ManagerFoodBundleAdapter(filteredBundles,databaseHelper,this);
-        recyclerView.setAdapter(adapter);
 
         managerMenuFragment managerMenuFragment = new managerMenuFragment();
         replaceFragment(managerMenuFragment);

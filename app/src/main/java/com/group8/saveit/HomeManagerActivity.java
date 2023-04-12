@@ -28,7 +28,9 @@ public class HomeManagerActivity extends AppCompatActivity {
                     manageFoodBundles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeManagerActivity.this, ManageFoodBundleActivity.class));
+                Intent ordersIntent = new Intent(HomeManagerActivity.this, ManageFoodBundleActivity.class);
+                ordersIntent.putExtra("restaurantId",restaurantId);
+                startActivity(ordersIntent);
             }
             });
 

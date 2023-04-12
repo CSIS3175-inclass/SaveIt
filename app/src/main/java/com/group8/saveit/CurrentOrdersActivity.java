@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -31,12 +32,12 @@ public class CurrentOrdersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_current_orders);
         Intent intent = getIntent();
         generateReport = findViewById(R.id.generateReportBtn);
+
         if(intent!=null){
             restaurantId = intent.getIntExtra("restaurantId",restaurantId);
 
             databaseHelper = new DatabaseHelper(this);
             recyclerView = findViewById(R.id.currentOrderRecycler);
-
             loadData();
 
             if(!customerOrders.isEmpty()){
@@ -47,8 +48,7 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
-                managerMenuFragment managerMenuFragment = new managerMenuFragment(restaurantId);
-                replaceFragment(managerMenuFragment);
+
             }
 
             generateReport.setOnClickListener(new View.OnClickListener() {
@@ -75,13 +75,16 @@ public class CurrentOrdersActivity extends AppCompatActivity {
                 }
             });
 
-
+            managerMenuFragment managerMenuFragment = new managerMenuFragment(restaurantId);
+            replaceFragment(managerMenuFragment);
 
         }
 
     }
 
     public void loadData(){
+        Log.d("test","loadind restaurant orders "+restaurantId);
+
         customerOrders = databaseHelper.getOrdersByRid(restaurantId);
     }
     public String getReport(CustomerOrder customerOrder){
