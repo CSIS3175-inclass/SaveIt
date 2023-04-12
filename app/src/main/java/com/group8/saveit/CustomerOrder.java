@@ -13,7 +13,6 @@ public class CustomerOrder {
     private String deliveryOption;
     private String address;
     private boolean isCompleted;
-
     private ArrayList<FoodBundle> orderedFoodBundles=new ArrayList<>();
 
     public CustomerOrder(int orderId, int customerId, String deliveryOption, String address) {

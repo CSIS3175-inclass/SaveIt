@@ -431,6 +431,31 @@ public String checkPassword(String username,String password) {
         return db.update(ORDER,contentValues,O_COL1+"=?",new String[]{Integer.toString(orderId)}) > 0;
     }
 
+    public ArrayList<CustomerOrder> getAllOrderByUser(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + O_COL1+ " FROM " +
+                ORDER + " WHERE " +  O_COL5 + " = '" + email +"'",null);
+
+        Log.d("test"," get order by user email "+email);
+
+        ArrayList<CustomerOrder> orders  = new ArrayList<>();
+
+        if(cursor.moveToFirst()){
+            do {
+                int orderIdIndex = cursor.getColumnIndex(O_COL1);
+                if(orderIdIndex>-1){
+                    CustomerOrder newOrder = getOrderById(cursor.getInt(orderIdIndex));
+                    if (newOrder!=null)
+                        orders.add(newOrder);
+                }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+
+        return  orders;
+
+    }
+
     //update Food bundle availability
     public boolean updateBundleAvailability(int BID,boolean isAvailable){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -543,6 +568,21 @@ public String checkPassword(String username,String password) {
         }
         return restaurant;
     }
+
+    public Restaurant getRestaurantByOrderID(int oid){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT "+RESTAURANT+"."+ R_COL1+" FROM "+RESTAURANT+" INNER JOIN "+ORDER+" ON "+ORDER+"."+O_COL4+"="+RESTAURANT+"."+R_COL1+" WHERE "+RESTAURANT+"."+R_COL1+"=?",new String[]{Integer.toString(oid)});
+        Restaurant restaurant = null;
+        if(cursor.moveToFirst()){
+            int ridIndex = cursor.getColumnIndex(R_COL1);
+            if(ridIndex>-1)
+            {
+                restaurant=getRestaurantByID(cursor.getInt(ridIndex));
+            }
+        }
+        return restaurant;
+    }
+
     public Customer getCustomerByEmail(String email){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM "+USER+" WHERE "+U_COL1+"=?",new String[]{email});

@@ -9,11 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.util.ArrayList;
+
 public class OrderHistory extends AppCompatActivity {
     String customerEmail;
+    DatabaseHelper databaseHelper;
+    ArrayList<CustomerOrder> orders ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +28,12 @@ public class OrderHistory extends AppCompatActivity {
         Intent intent = getIntent();
         if(intent!=null){
             customerEmail = intent.getStringExtra("customerEmail");
+            databaseHelper = new DatabaseHelper(this);
+            orders=databaseHelper.getAllOrderByUser(customerEmail);
+            Log.d("test", "orders "+orders);
             RecyclerView ordersHistoryRecyclerView = findViewById(R.id.recyclerviewFavoriteRestaurants);
-            OrderHistoryAdapter orderHistoryAdapter =new OrderHistoryAdapter(getApplicationContext());
+
+            OrderHistoryAdapter orderHistoryAdapter =new OrderHistoryAdapter(getApplicationContext(),orders);
             ordersHistoryRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             ordersHistoryRecyclerView.setAdapter(orderHistoryAdapter);
 

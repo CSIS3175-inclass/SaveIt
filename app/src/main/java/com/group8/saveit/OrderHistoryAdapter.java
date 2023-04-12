@@ -11,11 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class OrderHistoryAdapter extends RecyclerView.Adapter {
 
     Context context;
-    OrderHistoryAdapter(Context context){
+    ArrayList<CustomerOrder> orders;
+    DatabaseHelper databaseHelper;
+
+    OrderHistoryAdapter(Context context, ArrayList<CustomerOrder> orders){
         this.context = context;
+        this.orders = orders;
+        databaseHelper = new DatabaseHelper(context);
     }
     @NonNull
     @Override
@@ -27,18 +34,33 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-//        ((OrderView)holder).textViewOrderId.setText("OrderId:" + position);
-//        ((OrderView)holder).textViewDate.setText();
-//        ((OrderView)holder).textViewRestaurantName.setText();
-//        ((OrderView)holder).textViewBundles.setText();
-//        ((OrderView)holder).textViewTotal.setText();
-//        ((OrderView)holder).textViewOrderStatus.setText();
+        CustomerOrder order = orders.get(position);
+        Restaurant restaurant = databaseHelper.getRestaurantByOrderID(order.getOrderId());
+        ArrayList<FoodBundle> foodBundles = order.getOrderedFoodBundles();
+        double totalPrice = 0;
+        ((OrderView)holder).textViewOrderId.setText("OrderId: " + order.getOrderId());
+        ((OrderView)holder).textViewDate.setText("Date: " + order.getOrderDate());
+        ((OrderView)holder).textViewRestaurantName.setText("RestaurantName: " + restaurant.getName());
+
+        String bundles = "";
+        for(int i=0;i<foodBundles.size();i++){
+            totalPrice+=foodBundles.get(i).getPrice();
+            if(i==foodBundles.size()-1){
+                bundles = bundles + "Bundle Id: " +foodBundles.get(i).getId();
+            }else{
+                bundles = bundles + "Bundle Id: " + foodBundles.get(i).getId() +"\n";
+            }
+        }
+
+        ((OrderView)holder).textViewBundles.setText(bundles);
+        ((OrderView)holder).textViewTotal.setText("Total: $" + totalPrice);
+        ((OrderView)holder).textViewOrderStatus.setText("Order Status: " + (order.isCompleted()? "completed":"in-progress"));
 
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return orders.size();
     }
 
     class OrderView extends RecyclerView.ViewHolder{

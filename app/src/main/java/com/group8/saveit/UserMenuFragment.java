@@ -46,21 +46,34 @@ public class UserMenuFragment extends Fragment {
         profile = view.findViewById(R.id.menu_profile_icon);
 
         home.setOnClickListener(new View.OnClickListener() {
+            Intent previousIntent = getActivity().getIntent();
+            String customerEmail = previousIntent.getStringExtra("customerEmail");
+            Intent newIntent =new Intent(getContext(),RestaurantSearch.class);
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),RestaurantSearch.class));
+                newIntent.putExtra("customerEmail",customerEmail);
+                startActivity(newIntent);
             }
         });
         history.setOnClickListener(new View.OnClickListener() {
+            Intent previousIntent = getActivity().getIntent();
+            String customerEmail = previousIntent.getStringExtra("customerEmail");
+            Intent newIntent =new Intent(getContext(),OrderHistory.class);
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(),OrderHistory.class));
+                newIntent.putExtra("customerEmail",customerEmail);
+                startActivity(newIntent);
             }
         });
         profile.setOnClickListener(new View.OnClickListener() {
+            Intent previousIntent = getActivity().getIntent();
+            String customerEmail = previousIntent.getStringExtra("customerEmail");
+            Intent newIntent =new Intent(getContext(),userEdit.class);
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), userEdit.class));
+            public void onClick(View view) {
+                newIntent.putExtra("customerEmail",customerEmail);
+
+                startActivity(newIntent);
             }
         });
     }
