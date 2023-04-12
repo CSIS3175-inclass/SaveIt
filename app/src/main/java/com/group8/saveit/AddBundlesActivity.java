@@ -120,7 +120,7 @@ public class AddBundlesActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fragmentContainerView2,fragment);
+        transaction.replace(R.id.fragmentContainerView,fragment);
         transaction.commit();
     }
 }

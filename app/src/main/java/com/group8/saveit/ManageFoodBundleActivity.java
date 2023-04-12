@@ -72,7 +72,7 @@ public class ManageFoodBundleActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.navigationContainerView7,fragment);
+        transaction.replace(R.id.fragmentContainerView8,fragment);
         transaction.commit();
     }
 }

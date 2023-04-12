@@ -43,8 +43,14 @@ public class ManagerFoodBundleAdapter extends RecyclerView.Adapter<ManagerFoodBu
         FoodBundle bundle = bundles.get(holder.getAdapterPosition());
         holder.idTextView.setText("Bundle ID: " + bundle.getId());
         holder.priceTextView.setText("$" + bundle.getPrice());
+        Log.d("test","items: "+bundle.getItems());
+
         if (bundle.getItems() != null) {
-            holder.itemsTextView.setText(bundle.getItems().toString());
+            String items="";
+            for(int i=0;i<bundle.getItems().length;i++){
+                items+=bundle.getItems()[i]+",";
+            }
+            holder.itemsTextView.setText(items);
         } else {
             holder.itemsTextView.setText("No items in bundle");
         }

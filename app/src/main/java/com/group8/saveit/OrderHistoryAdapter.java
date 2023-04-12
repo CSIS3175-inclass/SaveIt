@@ -1,6 +1,7 @@
 package com.group8.saveit;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,12 @@ public class OrderHistoryAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         CustomerOrder order = orders.get(position);
-        Restaurant restaurant = databaseHelper.getRestaurantByOrderID(order.getOrderId());
+        int orderId = order.getOrderId();
+
+        Restaurant restaurant = databaseHelper.getRestaurantByOrderID(orderId);
         ArrayList<FoodBundle> foodBundles = order.getOrderedFoodBundles();
         double totalPrice = 0;
+
         ((OrderView)holder).textViewOrderId.setText("OrderId: " + order.getOrderId());
         ((OrderView)holder).textViewDate.setText("Date: " + order.getOrderDate());
         ((OrderView)holder).textViewRestaurantName.setText("RestaurantName: " + restaurant.getName());

@@ -290,7 +290,10 @@ public String checkPassword(String username,String password) {
                 @SuppressLint("Range") String items = cursor.getString(cursor.getColumnIndex(B_COL3));
                 @SuppressLint("Range") String RID = cursor.getString(cursor.getColumnIndex(B_COL4));
 //                FoodBundle bundle = new FoodBundle(bundleId, price, items);
-                FoodBundle bundle = new FoodBundle(bundleId, items,price, RID);
+                String[] itemsArr = items.split(",");
+                FoodBundle bundle = new FoodBundle(bundleId, price, itemsArr);
+                bundle.setRID(RID);
+
                 bundles.add(bundle);
             } while (cursor.moveToNext());
         }
@@ -571,7 +574,7 @@ public String checkPassword(String username,String password) {
 
     public Restaurant getRestaurantByOrderID(int oid){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT "+RESTAURANT+"."+ R_COL1+" FROM "+RESTAURANT+" INNER JOIN "+ORDER+" ON "+ORDER+"."+O_COL4+"="+RESTAURANT+"."+R_COL1+" WHERE "+RESTAURANT+"."+R_COL1+"=?",new String[]{Integer.toString(oid)});
+        Cursor cursor = db.rawQuery("SELECT "+RESTAURANT+"."+ R_COL1+" FROM "+RESTAURANT+" INNER JOIN "+ORDER+" ON "+ORDER+"."+O_COL4+"="+RESTAURANT+"."+R_COL1+" WHERE "+ORDER+"."+O_COL1+"=?",new String[]{Integer.toString(oid)});
         Restaurant restaurant = null;
         if(cursor.moveToFirst()){
             int ridIndex = cursor.getColumnIndex(R_COL1);

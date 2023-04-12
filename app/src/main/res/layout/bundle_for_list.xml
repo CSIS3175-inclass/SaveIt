@@ -3,80 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="403dp"
-    android:layout_height="125dp">
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/txtBundleID"
-        android:layout_width="wrap_content"
+        android:id="@+id/txtListItems"
+        android:layout_width="119dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="2dp"
-        android:text="@string/txtBundleID"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtItems"
+        android:text="@string/txtListItems"
+        app:layout_constraintBottom_toTopOf="@+id/txtPrice"
         app:layout_constraintStart_toStartOf="@+id/txtItems"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtItems" />
 
     <TextView
         android:id="@+id/txtItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="262dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/txtItems"
         app:layout_constraintBottom_toTopOf="@+id/txtListItems"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtBundleID"
         app:layout_constraintTop_toBottomOf="@+id/txtBundleID" />
-
-    <TextView
-        android:id="@+id/txtListItems"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="106dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/txtListItems"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtItems" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="13dp"
-        android:contentDescription="@string/txtImage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtPrice"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_shopping_bag_24" />
 
     <TextView
         android:id="@+id/txtPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginBottom="3dp"
         android:text="@string/txtPrice"
-        app:layout_constraintBottom_toBottomOf="@+id/txtListItems"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtListItems"
+        app:layout_constraintTop_toBottomOf="@+id/txtListItems" />
+
+    <TextView
+        android:id="@+id/txtBundleID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="77dp"
+        android:text="@string/txtBundleID"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtItems"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/ibtnDeleteBundle"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/txtImage"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txtBundleID"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_shopping_bag_24" />
 
     <ImageButton
         android:id="@+id/ibtnDeleteBundle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="15dp"
         android:contentDescription="@string/txtImage"
         android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/txtListItems"
+        app:layout_constraintEnd_toStartOf="@+id/txtBundleID"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/delete_img"
